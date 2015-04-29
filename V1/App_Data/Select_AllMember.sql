@@ -1,0 +1,87 @@
+SELECT     
+Mem_Member.Mem_MemberID, 
+Mem_Member.MemberShipNo, 
+Mem_Member.MemberShipNoDigit, 
+Mem_Member.Mem_MemberTypeID, 
+Mem_MemberType.Mem_MemberTypeName, 
+Mem_Member.Name, 
+Mem_Member.DateOfBirth, 
+Mem_Member.Age, 
+Comn_Nationality.Comn_NationalityName, 
+Mem_Member.Comn_NationalityID, 
+Mem_Member.PlaceOfBrith, 
+Mem_Member.MailingAddress1, 
+Mem_Member.MailingAddress2, 
+Mem_Member.MailingAddress3, 
+Mem_Member.MailingAddress, 
+Mem_Member.PermanentAddress, 
+Mem_Member.PermanentAddress1, 
+Mem_Member.PermanentAddress2, 
+Mem_Member.PermanentAddress3, 
+Mem_Member.PhoneOffice, 
+Mem_Member.PhoneResidence, 
+Mem_Member.Mobile, 
+Mem_Member.Email, 
+Mem_Member.Fax, 
+Mem_Member.OtherContactInfo, 
+Mem_Member.Comn_GenderID, 
+Comn_Gender.Comn_GenderName, 
+Mem_Member.PresentIEBMembershipNo, 
+Mem_Member.Mem_SubDivisionID, 
+Mem_SubDivision.Mem_SubDivisionName, 
+Mem_SubDivision.Mem_DivisionID, 
+Mem_SubDivision.FullName AS SubDivisionFullName, 
+Mem_Division.Mem_DivisionName, 
+Mem_Division.FullName, 
+Mem_Member.DeclarationDate, 
+Mem_Member.ScrollNo, 
+Mem_Member.ReceiptDate, 
+Mem_Member.Comn_StatusID, 
+Comn_Status.Comn_StatusName, 
+Mem_Member.PictureURL, 
+Mem_Member.SignatureURL, 
+Mem_Member.Comn_UniversityID, 
+Comn_University.Comn_UniversityName, 
+Mem_Member.PassingYear, 
+Mem_Member.Comn_OfficeID, 
+Comn_Office.Comn_OfficeName, 
+Mem_Member.Comn_BloodGroup, 
+Mem_Member.PassportNo, 
+Mem_Member.NationalIDNo, 
+Mem_Member.BirthRegistrationID, 
+Mem_Member.Comn_RowStatusID, 
+Mem_Member.ExtraField20, 
+Mem_Member.ExtraField19, 
+Mem_Member.ExtraField18, 
+Mem_Member.ExtraField17, 
+Mem_Member.ExtraField16, 
+Mem_Member.ExtraField15, 
+Mem_Member.ExtraField14, 
+Mem_Member.ExtraField13, 
+Mem_Member.ExtraField12, 
+Mem_Member.ExtraField11, 
+Mem_Member.ExtraField10, 
+Mem_Member.ExtraField9, 
+Mem_Member.ExtraField8, 
+Mem_Member.ExtraField7, 
+Mem_Member.ExtraField6, 
+Mem_Member.ExtraField5, 
+Mem_Member.ExtraField4, 
+Mem_Member.ExtraField3, 
+Mem_Member.ExtraField2, 
+Mem_Member.ExtraField1, 
+Comn_RowStatus.Comn_RowStatusName
+FROM         
+Mem_Member inner JOIN
+Mem_MemberType ON Mem_Member.Mem_MemberTypeID = Mem_MemberType.Mem_MemberTypeID inner JOIN
+Mem_MemberCategory ON Mem_MemberType.Mem_MemberCategoryID = Mem_MemberCategory.Mem_MemberCategoryID inner JOIN
+Comn_Nationality ON Mem_Member.Comn_NationalityID = Comn_Nationality.Comn_NationalityID inner JOIN
+Comn_Gender ON Mem_Member.Comn_GenderID = Comn_Gender.Comn_GenderID inner JOIN
+Mem_SubDivision ON Mem_Member.Mem_SubDivisionID = Mem_SubDivision.Mem_SubDivisionID inner JOIN
+Mem_Division ON Mem_SubDivision.Mem_DivisionID = Mem_Division.Mem_DivisionID INNER JOIN
+Mem_ApprovedCouncilMeeting ON 
+Mem_Member.Mem_ApprovedCouncilMeetingID = Mem_ApprovedCouncilMeeting.Mem_ApprovedCouncilMeetingID INNER JOIN
+Comn_Status ON Mem_Member.Comn_StatusID = Comn_Status.Comn_StatusID INNER JOIN
+Comn_University ON Mem_Member.Comn_UniversityID = Comn_University.Comn_UniversityID INNER JOIN
+Comn_Office ON Mem_Member.Comn_OfficeID = Comn_Office.Comn_OfficeID INNER JOIN
+Comn_RowStatus ON Mem_Member.Comn_RowStatusID = Comn_RowStatus.Comn_RowStatusID

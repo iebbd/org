@@ -1,0 +1,68 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_StatusInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["comn_StatusID"] != null)
+            {
+                int comn_StatusID = Int32.Parse(Request.QueryString["comn_StatusID"]);
+                if (comn_StatusID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_StatusData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_Status comn_Status = new Comn_Status();
+
+        comn_Status.Comn_StatusName = txtComn_StatusName.Text;
+        int resutl = Comn_StatusManager.InsertComn_Status(comn_Status);
+        Response.Redirect("AdminComn_StatusDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_Status comn_Status = new Comn_Status();
+        comn_Status = Comn_StatusManager.GetComn_StatusByID(Int32.Parse(Request.QueryString["comn_StatusID"]));
+        Comn_Status tempComn_Status = new Comn_Status();
+        tempComn_Status.Comn_StatusID = comn_Status.Comn_StatusID;
+
+        tempComn_Status.Comn_StatusName = txtComn_StatusName.Text;
+        bool result = Comn_StatusManager.UpdateComn_Status(tempComn_Status);
+        Response.Redirect("AdminComn_StatusDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtComn_StatusName.Text = "";
+    }
+    private void showComn_StatusData()
+    {
+        Comn_Status comn_Status = new Comn_Status();
+        comn_Status = Comn_StatusManager.GetComn_StatusByID(Int32.Parse(Request.QueryString["comn_StatusID"]));
+
+        txtComn_StatusName.Text = comn_Status.Comn_StatusName;
+    }
+}

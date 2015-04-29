@@ -1,0 +1,206 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_EducationalInfoInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadMem_Member();
+            loadComn_Gegree();
+            loadComn_University();
+            loadComn_Department();
+            loadComn_ResultType();
+            loadComn_RowStatus();
+            if (Request.QueryString["mem_EducationalInfoID"] != null)
+            {
+                int mem_EducationalInfoID = Int32.Parse(Request.QueryString["mem_EducationalInfoID"]);
+                if (mem_EducationalInfoID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_EducationalInfoData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_EducationalInfo mem_EducationalInfo = new Mem_EducationalInfo();
+
+        mem_EducationalInfo.Mem_MemberID = Int32.Parse(ddlMem_Member.SelectedValue);
+        mem_EducationalInfo.Comn_GegreeID = Int32.Parse(ddlComn_Gegree.SelectedValue);
+        mem_EducationalInfo.InstituteName = txtInstituteName.Text;
+        mem_EducationalInfo.Comn_UniversityID = Int32.Parse(ddlComn_University.SelectedValue);
+        mem_EducationalInfo.Comn_DepartmentID = Int32.Parse(ddlComn_Department.SelectedValue);
+        mem_EducationalInfo.DegreeTitle = txtDegreeTitle.Text;
+        mem_EducationalInfo.YearOfPassing = txtYearOfPassing.Text;
+        mem_EducationalInfo.Comn_ResultTypeID = Int32.Parse(ddlComn_ResultType.SelectedValue);
+        mem_EducationalInfo.Result = txtResult.Text;
+        mem_EducationalInfo.Details = txtDetails.Text;
+        mem_EducationalInfo.AddedBy = Int32.Parse(txtAddedBy.Text);
+        mem_EducationalInfo.AddedDate = DateTime.Now;
+        mem_EducationalInfo.ModifiedBy = Int32.Parse(txtModifiedBy.Text);
+        mem_EducationalInfo.ModifiedDate = txtModifiedDate.Text;
+        mem_EducationalInfo.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        int resutl = Mem_EducationalInfoManager.InsertMem_EducationalInfo(mem_EducationalInfo);
+        Response.Redirect("AdminMem_EducationalInfoDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_EducationalInfo mem_EducationalInfo = new Mem_EducationalInfo();
+        mem_EducationalInfo = Mem_EducationalInfoManager.GetMem_EducationalInfoByID(Int32.Parse(Request.QueryString["mem_EducationalInfoID"]));
+        Mem_EducationalInfo tempMem_EducationalInfo = new Mem_EducationalInfo();
+        tempMem_EducationalInfo.Mem_EducationalInfoID = mem_EducationalInfo.Mem_EducationalInfoID;
+
+        tempMem_EducationalInfo.Mem_MemberID = Int32.Parse(ddlMem_Member.SelectedValue);
+        tempMem_EducationalInfo.Comn_GegreeID = Int32.Parse(ddlComn_Gegree.SelectedValue);
+        tempMem_EducationalInfo.InstituteName = txtInstituteName.Text;
+        tempMem_EducationalInfo.Comn_UniversityID = Int32.Parse(ddlComn_University.SelectedValue);
+        tempMem_EducationalInfo.Comn_DepartmentID = Int32.Parse(ddlComn_Department.SelectedValue);
+        tempMem_EducationalInfo.DegreeTitle = txtDegreeTitle.Text;
+        tempMem_EducationalInfo.YearOfPassing = txtYearOfPassing.Text;
+        tempMem_EducationalInfo.Comn_ResultTypeID = Int32.Parse(ddlComn_ResultType.SelectedValue);
+        tempMem_EducationalInfo.Result = txtResult.Text;
+        tempMem_EducationalInfo.Details = txtDetails.Text;
+        tempMem_EducationalInfo.AddedBy = Int32.Parse(txtAddedBy.Text);
+        tempMem_EducationalInfo.AddedDate = DateTime.Now;
+        tempMem_EducationalInfo.ModifiedBy = Int32.Parse(txtModifiedBy.Text);
+        tempMem_EducationalInfo.ModifiedDate = txtModifiedDate.Text;
+        tempMem_EducationalInfo.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        bool result = Mem_EducationalInfoManager.UpdateMem_EducationalInfo(tempMem_EducationalInfo);
+        Response.Redirect("AdminMem_EducationalInfoDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        ddlMem_Member.SelectedIndex = 0;
+        ddlComn_Gegree.SelectedIndex = 0;
+        txtInstituteName.Text = "";
+        ddlComn_University.SelectedIndex = 0;
+        ddlComn_Department.SelectedIndex = 0;
+        txtDegreeTitle.Text = "";
+        txtYearOfPassing.Text = "";
+        ddlComn_ResultType.SelectedIndex = 0;
+        txtResult.Text = "";
+        txtDetails.Text = "";
+        txtAddedBy.Text = "";
+        txtModifiedBy.Text = "";
+        txtModifiedDate.Text = "";
+        ddlComn_RowStatus.SelectedIndex = 0;
+    }
+    private void showMem_EducationalInfoData()
+    {
+        Mem_EducationalInfo mem_EducationalInfo = new Mem_EducationalInfo();
+        mem_EducationalInfo = Mem_EducationalInfoManager.GetMem_EducationalInfoByID(Int32.Parse(Request.QueryString["mem_EducationalInfoID"]));
+
+        ddlMem_Member.SelectedValue = mem_EducationalInfo.Mem_MemberID.ToString();
+        ddlComn_Gegree.SelectedValue = mem_EducationalInfo.Comn_GegreeID.ToString();
+        txtInstituteName.Text = mem_EducationalInfo.InstituteName;
+        ddlComn_University.SelectedValue = mem_EducationalInfo.Comn_UniversityID.ToString();
+        ddlComn_Department.SelectedValue = mem_EducationalInfo.Comn_DepartmentID.ToString();
+        txtDegreeTitle.Text = mem_EducationalInfo.DegreeTitle;
+        txtYearOfPassing.Text = mem_EducationalInfo.YearOfPassing;
+        ddlComn_ResultType.SelectedValue = mem_EducationalInfo.Comn_ResultTypeID.ToString();
+        txtResult.Text = mem_EducationalInfo.Result;
+        txtDetails.Text = mem_EducationalInfo.Details;
+        txtAddedBy.Text = mem_EducationalInfo.AddedBy.ToString();
+        txtModifiedBy.Text = mem_EducationalInfo.ModifiedBy.ToString();
+        txtModifiedDate.Text = mem_EducationalInfo.ModifiedDate;
+        ddlComn_RowStatus.SelectedValue = mem_EducationalInfo.Comn_RowStatusID.ToString();
+    }
+    private void loadMem_Member()
+    {
+        ListItem li = new ListItem("Select Mem_Member...", "0");
+        ddlMem_Member.Items.Add(li);
+
+        List<Mem_Member> mem_Members = new List<Mem_Member>();
+        mem_Members = Mem_MemberManager.GetAllMem_Members();
+        foreach (Mem_Member mem_Member in mem_Members)
+        {
+            ListItem item = new ListItem(mem_Member.Mem_MemberName.ToString(), mem_Member.Mem_MemberID.ToString());
+            ddlMem_Member.Items.Add(item);
+        }
+    }
+    private void loadComn_Gegree()
+    {
+        ListItem li = new ListItem("Select Comn_Gegree...", "0");
+        ddlComn_Gegree.Items.Add(li);
+
+        List<Comn_Gegree> comn_Gegrees = new List<Comn_Gegree>();
+        comn_Gegrees = Comn_GegreeManager.GetAllComn_Gegrees();
+        foreach (Comn_Gegree comn_Gegree in comn_Gegrees)
+        {
+            ListItem item = new ListItem(comn_Gegree.Comn_GegreeName.ToString(), comn_Gegree.Comn_GegreeID.ToString());
+            ddlComn_Gegree.Items.Add(item);
+        }
+    }
+    private void loadComn_University()
+    {
+        ListItem li = new ListItem("Select Comn_University...", "0");
+        ddlComn_University.Items.Add(li);
+
+        List<Comn_University> comn_Universities = new List<Comn_University>();
+        comn_Universities = Comn_UniversityManager.GetAllComn_Universities();
+        foreach (Comn_University comn_University in comn_Universities)
+        {
+            ListItem item = new ListItem(comn_University.Comn_UniversityName.ToString(), comn_University.Comn_UniversityID.ToString());
+            ddlComn_University.Items.Add(item);
+        }
+    }
+    private void loadComn_Department()
+    {
+        ListItem li = new ListItem("Select Comn_Department...", "0");
+        ddlComn_Department.Items.Add(li);
+
+        List<Comn_Department> comn_Departments = new List<Comn_Department>();
+        comn_Departments = Comn_DepartmentManager.GetAllComn_Departments();
+        foreach (Comn_Department comn_Department in comn_Departments)
+        {
+            ListItem item = new ListItem(comn_Department.Comn_DepartmentName.ToString(), comn_Department.Comn_DepartmentID.ToString());
+            ddlComn_Department.Items.Add(item);
+        }
+    }
+    private void loadComn_ResultType()
+    {
+        ListItem li = new ListItem("Select Comn_ResultType...", "0");
+        ddlComn_ResultType.Items.Add(li);
+
+        List<Comn_ResultType> comn_ResultTypes = new List<Comn_ResultType>();
+        comn_ResultTypes = Comn_ResultTypeManager.GetAllComn_ResultTypes();
+        foreach (Comn_ResultType comn_ResultType in comn_ResultTypes)
+        {
+            ListItem item = new ListItem(comn_ResultType.Comn_ResultTypeName.ToString(), comn_ResultType.Comn_ResultTypeID.ToString());
+            ddlComn_ResultType.Items.Add(item);
+        }
+    }
+    private void loadComn_RowStatus()
+    {
+        ListItem li = new ListItem("Select Comn_RowStatus...", "0");
+        ddlComn_RowStatus.Items.Add(li);
+
+        List<Comn_RowStatus> comn_RowStatuss = new List<Comn_RowStatus>();
+        comn_RowStatuss = Comn_RowStatusManager.GetAllComn_RowStatuss();
+        foreach (Comn_RowStatus comn_RowStatus in comn_RowStatuss)
+        {
+            ListItem item = new ListItem(comn_RowStatus.Comn_RowStatusName.ToString(), comn_RowStatus.Comn_RowStatusID.ToString());
+            ddlComn_RowStatus.Items.Add(item);
+        }
+    }
+}

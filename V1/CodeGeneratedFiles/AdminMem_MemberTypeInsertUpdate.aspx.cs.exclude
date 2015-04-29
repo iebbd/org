@@ -1,0 +1,110 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_MemberTypeInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadMem_MemberCategory();
+            if (Request.QueryString["mem_MemberTypeID"] != null)
+            {
+                int mem_MemberTypeID = Int32.Parse(Request.QueryString["mem_MemberTypeID"]);
+                if (mem_MemberTypeID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_MemberTypeData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_MemberType mem_MemberType = new Mem_MemberType();
+
+        mem_MemberType.Mem_MemberTypeName = txtMem_MemberTypeName.Text;
+        mem_MemberType.Mem_MemberCategoryID = Int32.Parse(ddlMem_MemberCategory.SelectedValue);
+        mem_MemberType.Details = txtDetails.Text;
+        mem_MemberType.EntranceFee = Decimal.Parse(txtEntranceFee.Text);
+        mem_MemberType.AnnaralSubscriptionFee = Decimal.Parse(txtAnnaralSubscriptionFee.Text);
+        mem_MemberType.DiplomaFee = Decimal.Parse(txtDiplomaFee.Text);
+        mem_MemberType.Age = Int32.Parse(txtAge.Text);
+        mem_MemberType.Experience = txtExperience.Text;
+        int resutl = Mem_MemberTypeManager.InsertMem_MemberType(mem_MemberType);
+        Response.Redirect("AdminMem_MemberTypeDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_MemberType mem_MemberType = new Mem_MemberType();
+        mem_MemberType = Mem_MemberTypeManager.GetMem_MemberTypeByID(Int32.Parse(Request.QueryString["mem_MemberTypeID"]));
+        Mem_MemberType tempMem_MemberType = new Mem_MemberType();
+        tempMem_MemberType.Mem_MemberTypeID = mem_MemberType.Mem_MemberTypeID;
+
+        tempMem_MemberType.Mem_MemberTypeName = txtMem_MemberTypeName.Text;
+        tempMem_MemberType.Mem_MemberCategoryID = Int32.Parse(ddlMem_MemberCategory.SelectedValue);
+        tempMem_MemberType.Details = txtDetails.Text;
+        tempMem_MemberType.EntranceFee = Decimal.Parse(txtEntranceFee.Text);
+        tempMem_MemberType.AnnaralSubscriptionFee = Decimal.Parse(txtAnnaralSubscriptionFee.Text);
+        tempMem_MemberType.DiplomaFee = Decimal.Parse(txtDiplomaFee.Text);
+        tempMem_MemberType.Age = Int32.Parse(txtAge.Text);
+        tempMem_MemberType.Experience = txtExperience.Text;
+        bool result = Mem_MemberTypeManager.UpdateMem_MemberType(tempMem_MemberType);
+        Response.Redirect("AdminMem_MemberTypeDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtMem_MemberTypeName.Text = "";
+        ddlMem_MemberCategory.SelectedIndex = 0;
+        txtDetails.Text = "";
+        txtEntranceFee.Text = "";
+        txtAnnaralSubscriptionFee.Text = "";
+        txtDiplomaFee.Text = "";
+        txtAge.Text = "";
+        txtExperience.Text = "";
+    }
+    private void showMem_MemberTypeData()
+    {
+        Mem_MemberType mem_MemberType = new Mem_MemberType();
+        mem_MemberType = Mem_MemberTypeManager.GetMem_MemberTypeByID(Int32.Parse(Request.QueryString["mem_MemberTypeID"]));
+
+        txtMem_MemberTypeName.Text = mem_MemberType.Mem_MemberTypeName;
+        ddlMem_MemberCategory.SelectedValue = mem_MemberType.Mem_MemberCategoryID.ToString();
+        txtDetails.Text = mem_MemberType.Details;
+        txtEntranceFee.Text = mem_MemberType.EntranceFee.ToString();
+        txtAnnaralSubscriptionFee.Text = mem_MemberType.AnnaralSubscriptionFee.ToString();
+        txtDiplomaFee.Text = mem_MemberType.DiplomaFee.ToString();
+        txtAge.Text = mem_MemberType.Age.ToString();
+        txtExperience.Text = mem_MemberType.Experience;
+    }
+    private void loadMem_MemberCategory()
+    {
+        ListItem li = new ListItem("Select Mem_MemberCategory...", "0");
+        ddlMem_MemberCategory.Items.Add(li);
+
+        List<Mem_MemberCategory> mem_MemberCategories = new List<Mem_MemberCategory>();
+        mem_MemberCategories = Mem_MemberCategoryManager.GetAllMem_MemberCategories();
+        foreach (Mem_MemberCategory mem_MemberCategory in mem_MemberCategories)
+        {
+            ListItem item = new ListItem(mem_MemberCategory.Mem_MemberCategoryName.ToString(), mem_MemberCategory.Mem_MemberCategoryID.ToString());
+            ddlMem_MemberCategory.Items.Add(item);
+        }
+    }
+}

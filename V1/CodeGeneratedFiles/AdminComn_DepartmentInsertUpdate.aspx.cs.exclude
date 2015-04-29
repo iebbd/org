@@ -1,0 +1,92 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_DepartmentInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["comn_DepartmentID"] != null)
+            {
+                int comn_DepartmentID = Int32.Parse(Request.QueryString["comn_DepartmentID"]);
+                if (comn_DepartmentID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_DepartmentData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_Department comn_Department = new Comn_Department();
+
+        comn_Department.Comn_DepartmentName = txtComn_DepartmentName.Text;
+        comn_Department.Website = txtWebsite.Text;
+        comn_Department.Phone = txtPhone.Text;
+        comn_Department.Fax = txtFax.Text;
+        comn_Department.Type = Int32.Parse(txtType.Text);
+        comn_Department.Details = txtDetails.Text;
+        comn_Department.OldName = txtOldName.Text;
+        int resutl = Comn_DepartmentManager.InsertComn_Department(comn_Department);
+        Response.Redirect("AdminComn_DepartmentDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_Department comn_Department = new Comn_Department();
+        comn_Department = Comn_DepartmentManager.GetComn_DepartmentByID(Int32.Parse(Request.QueryString["comn_DepartmentID"]));
+        Comn_Department tempComn_Department = new Comn_Department();
+        tempComn_Department.Comn_DepartmentID = comn_Department.Comn_DepartmentID;
+
+        tempComn_Department.Comn_DepartmentName = txtComn_DepartmentName.Text;
+        tempComn_Department.Website = txtWebsite.Text;
+        tempComn_Department.Phone = txtPhone.Text;
+        tempComn_Department.Fax = txtFax.Text;
+        tempComn_Department.Type = Int32.Parse(txtType.Text);
+        tempComn_Department.Details = txtDetails.Text;
+        tempComn_Department.OldName = txtOldName.Text;
+        bool result = Comn_DepartmentManager.UpdateComn_Department(tempComn_Department);
+        Response.Redirect("AdminComn_DepartmentDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtComn_DepartmentName.Text = "";
+        txtWebsite.Text = "";
+        txtPhone.Text = "";
+        txtFax.Text = "";
+        txtType.Text = "";
+        txtDetails.Text = "";
+        txtOldName.Text = "";
+    }
+    private void showComn_DepartmentData()
+    {
+        Comn_Department comn_Department = new Comn_Department();
+        comn_Department = Comn_DepartmentManager.GetComn_DepartmentByID(Int32.Parse(Request.QueryString["comn_DepartmentID"]));
+
+        txtComn_DepartmentName.Text = comn_Department.Comn_DepartmentName;
+        txtWebsite.Text = comn_Department.Website;
+        txtPhone.Text = comn_Department.Phone;
+        txtFax.Text = comn_Department.Fax;
+        txtType.Text = comn_Department.Type.ToString();
+        txtDetails.Text = comn_Department.Details;
+        txtOldName.Text = comn_Department.OldName;
+    }
+}

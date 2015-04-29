@@ -1,0 +1,625 @@
+
+#wraper
+{
+	width:971px;
+	height:auto;
+	margin: 0 auto;
+}
+#wraper #head
+{
+	width:971px;
+	height:auto;
+	float:left;	
+	margin-bottom:15px;
+}
+#wraper #head .top_header
+{
+	width:971px;
+	/*height:20px;*/
+	background-color:#CF9993;
+	/*margin-bottom:10px;*/
+}
+
+#wraper #head .banners
+{
+	width:720px;
+	height:130px;
+	float:left;
+	background:url(../images/banner.jpg) no-repeat;
+}
+#wraper #head .full_banner
+{
+	width:971px;
+	height:120px;
+	float:left;
+}
+#wraper #head .full_banner1
+{
+	width:971px;
+	height:31px;
+	
+	text-align:center;
+	vertical-align:middle;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:13px;
+	color:#CA7943;
+	font-weight:bold;
+	margin-top:5px;
+	float:left;
+}
+
+#wraper #head .logo
+{
+	width:117px;
+	height:128px;
+	float:left;
+}
+#wraper #head .logo img
+{
+	width:117px;
+	height:128px;
+	float:left;
+	position:relative;
+}
+#wraper #head .title
+{
+	width:600px;
+	height:auto;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:18px;
+	color:#999;
+	position:relative;
+	top:40px;
+	left:20px;
+	float:left;
+}
+#wraper #head .title span
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:22px;
+	color:#3E3E54;
+	font-weight:bold;
+}
+#wraper #head .search_bar
+{
+	float:right;
+	background:url(../images/search_bg_03.png) no-repeat;
+	width:233px;
+	height:54px;
+	position:relative;
+	top:30px;
+}
+#wraper #head .search_bar .inputbox
+{
+	width:80%;
+	height:40%;
+	float:left;
+	position:relative;
+	top:8px;
+	left:7px;
+}
+#wraper #head .search_bar .buttonInput
+{
+	width:25px;
+	height:27px;
+	float:left;
+	position:relative;
+	top:8px;
+	left:10px;
+}
+#wraper #head .banner
+{
+	width:980px;
+	height:213px;
+	float:left;
+	position:relative;
+	top:10px;
+}
+#wraper #head .banner img
+{
+	width:980px;
+	height:213px;
+	float:left;
+}
+#wraper #head .menu
+{
+	width:973px;
+	height:30px;
+	float:left;
+	top:5px;
+	font-family:Arial, Helvetica, sans-serif;
+	
+	/*background:url(../images/menuBg_03.png) repeat-x;*/
+	
+	z-index:2;
+	position:relative;
+	
+}
+
+#wraper #content
+{
+	width:748px;
+	height:auto;
+	float:left;
+	/*position:relative;*/
+	margin-top:5px;
+	
+	/*border-right:solid;
+	border-right-width:1px;
+	border-right-color:#999;*/
+	
+}
+#wraper .body_component
+{
+	width:700px;
+	color:#003333;
+	font-size:14px;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:justify;
+	padding-left:20px; 
+	padding-right:20px;
+	/*min-height:700px;*/
+	padding-top:15px;
+	height:auto;
+	float:left;
+	box-shadow:0 0 5px #CCCCCC;
+	
+}
+
+#wraper .body_component_withoutRightSidePanel
+{
+	width:930px;
+	color:#003333;
+	font-size:14px;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:justify;
+	padding-left:20px; 
+	padding-right:20px;
+	/*min-height:700px;*/
+	padding-top:15px;
+	height:auto;
+	float:left;
+	box-shadow:0 0 5px #CCCCCC;
+	
+}
+
+
+#wraper #content .newsticker1
+{
+	width:728px;
+	height:280px;
+	padding:2px 2px 2px 2px;
+	
+	/*padding:4px 4px 4px 4px;
+	float:left;*/
+	
+}
+
+#wraper #content .wellcome
+{
+	width:735px;
+	height:140px;
+	box-shadow:0 0 5px #CCCCCC;
+	margin-top:20px;
+}
+
+body.ie6 #wraper #content .wellcome,
+body.ie7 #wraper #content .wellcome,
+body.ie8 #wraper #content .wellcome {
+   zoom: 1;
+   filter: progid:DXImageTransform.Microsoft.DropShadow(OffX=5, OffY=5, Color=#CCCCCC);
+}
+
+#wraper #content .wellcome .wel_top
+{
+	width:713px;
+	height:17px;
+	padding-top:15px;
+	padding-left:10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:15px;
+	color:#069;
+	font-weight:bold;
+	text-align:left;
+	
+}
+#wraper #content .wellcome .data
+{
+	width:713px;
+	height:80px;
+	padding-top:5px;
+	padding-left:10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:15px;
+	color:#000;
+	text-align:justify;
+	line-height:25px;
+		
+}
+#wraper #content .wellcome .readmore
+{
+	width:713px;
+	height:18px;
+	padding-left:10px;
+	text-align:right;
+}
+#wraper #content .wellcome .readmore a
+{
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	text-decoration:none;
+}
+#wraper #content .wellcome .readmore a:hover
+{
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+#wraper #LLNews
+{
+	width:240px;
+	height:140px;;
+	float:left;
+	position:relative;
+	top:13px;
+	margin-top:5px;
+	box-shadow:0px 0px 5px #CCCCCC;
+	padding-top:10px;
+	padding-bottom:20px;
+	
+}
+#wraper #LLNews .title1
+{
+	width:220px;
+	height:auto;
+	position:relative;
+	border-bottom:solid;
+	border-bottom-width:2px;
+	border-bottom-color:#FFBFBF;
+	color:#069;
+	left:5px;
+	text-align:left;
+	font-size:16px;
+	font-weight:normal;
+}
+#wraper #LLNews .title1_bang
+{
+	font-family:SolaimanLipi;
+	width:220px;
+	height:auto;
+	position:relative;
+	border-bottom:solid;
+	border-bottom-width:2px;
+	border-bottom-color:#FFBFBF;
+	color:#069;
+	left:5px;
+	text-align:left;
+	font-size:16px;
+	font-weight:normal;
+}
+
+#wraper #LLNews .title
+{
+	text-align:left; 
+	margin:0px 5px 5px 5px; 
+	line-height:20px;
+	text-align:justify;
+	font-size:15px;
+	font-weight:normal;
+}
+#wraper #LLNews .title_bang
+{
+	font-family:SolaimanLipi;
+	margin:0px 1px 5px 5px; 
+	text-align:left; 
+	font-size:16px;
+	font-weight:normal;
+}
+
+#wraper #LLNews p1
+{
+	width:220px;
+	height:auto;
+	
+	margin:0px;
+	padding:0px;
+	top:10px;
+	line-height:20px;
+	left:10px;
+}
+#wraper #LLNews p img
+{
+	width:80px;
+	max-height:60px;
+	margin: 0px;
+	margin-right:5px;
+	padding:0px;
+	vertical-align:top;
+}
+#wraper #LRNews
+{
+	width:360px;
+	height:auto;
+	float:right;
+	position:relative;
+	top:20px;
+	right:10px;
+	margin-top:30px;
+	box-shadow:0 0 5px #CCCCCC;
+	padding-top:10px;
+	padding-bottom:20px;
+}
+#wraper #LRNews .title
+{
+	width:340px;
+	height:auto;
+	float:left;
+	position:relative;
+	border-bottom:solid;
+	border-bottom-width:2px;
+	border-bottom-color:#FFBFBF;
+	color:#7C84D1;
+	left:10px;
+}
+#wraper #LRNews p
+{
+	width:340px;
+	height:auto;
+	float:left;
+	position:relative;
+	text-align:justify;
+	margin:0px;
+	padding:0px;
+	top:10px;
+	line-height:20px;
+	left:10px;
+}
+#wraper #LRNews p img
+{
+	width:100px;
+	float:left;
+	margin:0px 3px 3px 0px;
+}
+
+#wraper #rightPanle
+{
+	width:220px;
+	height:auto;
+	float:right;
+	position:relative;
+	top:5px;
+}
+#wraper #rightPanle .container
+{
+	width:100%;
+	float:left;
+	position:relative;
+	margin-bottom:12px;
+}
+#wraper #rightPanle .container .photoslide
+{
+	width:100%px;
+	height:180px;
+	background-color:#E1AFA8;
+	padding:2px 2px 2px 2px;
+	overflow:hidden;
+	position:relative;
+	/*float:left;*/
+	
+}
+
+#wraper #rightPanle .newsEvents
+{
+	width:210px;;
+	height:557px;
+	float:right;
+	position:relative;
+	background:url(../images/newsEventsBg.gif) repeat-x;
+	overflow:hidden;
+	
+}
+#wraper #rightPanle .newsEvents marquee
+{
+	width:100%;
+	height:530px;
+	float:left;
+	position:relative;
+	/*overflow:hidden;*/
+	
+}
+#wraper #rightPanle .newsEvents  marquee .title
+{
+	width:100%;
+	height:auto;
+	float:left;
+	position:relative;
+	border-bottom:solid;
+	border-bottom-width:2px;
+	border-bottom-color:#FFBFBF;
+	color:#7C84D1;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:normal;
+	text-align:left;
+}
+#wraper #rightPanle .newsEvents  marquee .title a
+{
+	color:#7C84D1;
+	text-decoration:none;
+}
+#wraper #rightPanle .newsEvents  marquee .title a:hover
+{
+	color:#7C84D1;
+	text-decoration:none;
+}
+#wraper #rightPanle .newsEvents  marquee span
+{
+	width:95%;
+	height:auto;
+	float:left;
+	position:relative;
+	text-align:justify;
+	margin:0px;
+	padding:0px;
+	top:2px;
+	left:2%;
+	margin-bottom:5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:normal;
+}
+#wraper #rightPanle .newsEvents  marquee span img
+{
+	width:50px;
+	float:left;
+	margin:0px 3px 2px 0px;
+	border:none;
+	border-width:0px;
+}
+#wraper #rightPanle .newsEvents  marquee span  a
+{
+	font-family:  Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#06C;
+	text-decoration:none;
+}
+#wraper #rightPanle .newsEvents  marquee span  a:hover
+{
+	font-family:  Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#006;
+}
+#wraper #rightPanle .newsLetter
+{
+	width:100%;
+	height:142px;
+	float:left;
+	position:relative;
+	background-color:#A2A7FF;
+	top:10px;
+}
+#wraper #rightPanle .newsLetter .title
+{
+	width:90%;
+	height:auto;
+	float:left;
+	position:relative;
+	top:5px;
+	left:5%;
+	border-bottom:solid;
+	border-bottom-color:#FFF;
+	border-bottom-width:2px;
+	color:#FFF;
+	font-size:16px;
+	font-weight:bold;
+}
+#wraper #rightPanle .newsLetter .leble
+{
+	width:30%;
+	height:auto;
+	float:left;
+	position:relative;
+	left:5%;
+	top:14px;
+	font-size:14px;
+	color:#FFF;
+	margin-top:4px;
+}
+#wraper #rightPanle .newsLetter .textBox
+{
+	width:60%;
+	height:auto;
+	float:right;
+	position:relative;
+	top:10px;
+	right:10%;
+	font-size:14px;
+	color:#FFF;
+	margin-top:4px;
+}
+#wraper #rightPanle .newsLetter .textBox input
+{
+	width:auto;
+	height:auto;
+	font-size:14px;
+	color:#000;
+}
+#wraper #rightPanle .newsLetter .but
+{
+	width:90%;
+	height:auto;
+	position:relative;
+	float:left;
+	top:15px;
+	left:5%;
+	text-align:center;
+}
+#wraper #footer
+{
+	width:100%;
+	height:25px;
+	float:left;
+	position:relative;
+	top:14px;
+	background-color:#D17E60;
+}
+#wraper #footer .leftside
+{
+	float:left;
+	width:610px;
+	height:100%;
+	
+}
+#wraper #footer .leftside img
+{
+	height:80px;
+	float:left;
+	position:relative;
+	top:2px;
+	left:10px;
+}
+#footer span
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#FFF;
+	font-weight:bold;
+	
+}
+#wraper #footer .leftside span
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#FFF;
+	font-weight:bold;
+	position:relative;
+	padding-top:30px;
+	left:25px;
+	float:left;
+}
+#wraper #footer .rightside
+{
+
+	position:relative;
+	float:right;
+	top:70%;
+	right:10px;
+}
+#wraper #footer .rightside a
+{
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#ffffff;
+}
+#wraper #footer .rightside a:hover
+{
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#9F0;
+}
+

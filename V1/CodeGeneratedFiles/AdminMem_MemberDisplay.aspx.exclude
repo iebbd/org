@@ -1,0 +1,528 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true"
+    CodeFile="AdminMem_MemberDisplay.aspx.cs" Inherits="AdminMem_MemberDisplay" Title="Display Mem_Member By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
+        .gridCss
+        {
+            width: 100%;
+            padding: 20px 10px 10px 10px;
+            text-align: center;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div>
+        <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+        <asp:GridView ID="gvMem_Member" runat="server" AutoGenerateColumns="false" CssClass="gridCss">
+            <Columns>
+                <asp:TemplateField HeaderText="Select">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbSelect" runat="server" CommandArgument='<%#Eval("Mem_MemberID") %>' OnClick="lbSelect_Click">
+                            Select
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MemberShipNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMemberShipNo" runat="server" Text='<%#Eval("MemberShipNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MemberShipNoDigit">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMemberShipNoDigit" runat="server" Text='<%#Eval("MemberShipNoDigit") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mem_MemberTypeID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMem_MemberTypeID" runat="server" Text='<%#Eval("Mem_MemberTypeID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Name">
+                    <ItemTemplate>
+                        <asp:Label ID="lblName" runat="server" Text='<%#Eval("Name") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="DateOfBirth">
+                    <ItemTemplate>
+                        <asp:Label ID="lblDateOfBirth" runat="server" Text='<%#Eval("DateOfBirth") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Age">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAge" runat="server" Text='<%#Eval("Age") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_NationalityID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_NationalityID" runat="server" Text='<%#Eval("Comn_NationalityID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PlaceOfBrith">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPlaceOfBrith" runat="server" Text='<%#Eval("PlaceOfBrith") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MailingAddress1">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMailingAddress1" runat="server" Text='<%#Eval("MailingAddress1") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MailingAddress2">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMailingAddress2" runat="server" Text='<%#Eval("MailingAddress2") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MailingAddress3">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMailingAddress3" runat="server" Text='<%#Eval("MailingAddress3") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MailingAddress">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMailingAddress" runat="server" Text='<%#Eval("MailingAddress") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PermanentAddress">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPermanentAddress" runat="server" Text='<%#Eval("PermanentAddress") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PermanentAddress1">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPermanentAddress1" runat="server" Text='<%#Eval("PermanentAddress1") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PermanentAddress2">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPermanentAddress2" runat="server" Text='<%#Eval("PermanentAddress2") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PermanentAddress3">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPermanentAddress3" runat="server" Text='<%#Eval("PermanentAddress3") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PhoneOffice">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPhoneOffice" runat="server" Text='<%#Eval("PhoneOffice") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PhoneResidence">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPhoneResidence" runat="server" Text='<%#Eval("PhoneResidence") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mobile">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMobile" runat="server" Text='<%#Eval("Mobile") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Email">
+                    <ItemTemplate>
+                        <asp:Label ID="lblEmail" runat="server" Text='<%#Eval("Email") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Fax">
+                    <ItemTemplate>
+                        <asp:Label ID="lblFax" runat="server" Text='<%#Eval("Fax") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="OtherContactInfo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblOtherContactInfo" runat="server" Text='<%#Eval("OtherContactInfo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_GenderID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_GenderID" runat="server" Text='<%#Eval("Comn_GenderID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PresentIEBMembershipNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPresentIEBMembershipNo" runat="server" Text='<%#Eval("PresentIEBMembershipNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mem_SubDivisionID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMem_SubDivisionID" runat="server" Text='<%#Eval("Mem_SubDivisionID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="DeclarationDate">
+                    <ItemTemplate>
+                        <asp:Label ID="lblDeclarationDate" runat="server" Text='<%#Eval("DeclarationDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mem_ApprovedCouncilMeetingID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMem_ApprovedCouncilMeetingID" runat="server" Text='<%#Eval("Mem_ApprovedCouncilMeetingID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ScrollNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblScrollNo" runat="server" Text='<%#Eval("ScrollNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ReceiptDate">
+                    <ItemTemplate>
+                        <asp:Label ID="lblReceiptDate" runat="server" Text='<%#Eval("ReceiptDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CopiesOfCertificates">
+                    <ItemTemplate>
+                        <asp:Label ID="lblCopiesOfCertificates" runat="server" Text='<%#Eval("CopiesOfCertificates") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CopiesOfCertificatesComment">
+                    <ItemTemplate>
+                        <asp:Label ID="lblCopiesOfCertificatesComment" runat="server" Text='<%#Eval("CopiesOfCertificatesComment") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CopiesOfTranscripts">
+                    <ItemTemplate>
+                        <asp:Label ID="lblCopiesOfTranscripts" runat="server" Text='<%#Eval("CopiesOfTranscripts") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="CopiesOfTranscriptsComment">
+                    <ItemTemplate>
+                        <asp:Label ID="lblCopiesOfTranscriptsComment" runat="server" Text='<%#Eval("CopiesOfTranscriptsComment") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PhotoEnclosed">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPhotoEnclosed" runat="server" Text='<%#Eval("PhotoEnclosed") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ProfessionalRecordEnclosed">
+                    <ItemTemplate>
+                        <asp:Label ID="lblProfessionalRecordEnclosed" runat="server" Text='<%#Eval("ProfessionalRecordEnclosed") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ProfessionalRecordEnclosedComment">
+                    <ItemTemplate>
+                        <asp:Label ID="lblProfessionalRecordEnclosedComment" runat="server" Text='<%#Eval("ProfessionalRecordEnclosedComment") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="RecomendationOffice">
+                    <ItemTemplate>
+                        <asp:Label ID="lblRecomendationOffice" runat="server" Text='<%#Eval("RecomendationOffice") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="RecomenDationCommentOffice">
+                    <ItemTemplate>
+                        <asp:Label ID="lblRecomenDationCommentOffice" runat="server" Text='<%#Eval("RecomenDationCommentOffice") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="AgeMembershipSection">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAgeMembershipSection" runat="server" Text='<%#Eval("AgeMembershipSection") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Education">
+                    <ItemTemplate>
+                        <asp:Label ID="lblEducation" runat="server" Text='<%#Eval("Education") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Exprerience">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExprerience" runat="server" Text='<%#Eval("Exprerience") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="RecomendationMembershipSec">
+                    <ItemTemplate>
+                        <asp:Label ID="lblRecomendationMembershipSec" runat="server" Text='<%#Eval("RecomendationMembershipSec") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="RecomenDationCommentMembershipSec">
+                    <ItemTemplate>
+                        <asp:Label ID="lblRecomenDationCommentMembershipSec" runat="server" Text='<%#Eval("RecomenDationCommentMembershipSec") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MembershipSectionEmployeeID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMembershipSectionEmployeeID" runat="server" Text='<%#Eval("MembershipSectionEmployeeID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_StatusID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_StatusID" runat="server" Text='<%#Eval("Comn_StatusID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MembershipCommiteeMemebershipNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMembershipCommiteeMemebershipNo" runat="server" Text='<%#Eval("MembershipCommiteeMemebershipNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MembershipCommiteeMemebershipTypeID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMembershipCommiteeMemebershipTypeID" runat="server" Text='<%#Eval("MembershipCommiteeMemebershipTypeID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PictureURL">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPictureURL" runat="server" Text='<%#Eval("PictureURL") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="SignatureURL">
+                    <ItemTemplate>
+                        <asp:Label ID="lblSignatureURL" runat="server" Text='<%#Eval("SignatureURL") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_UniversityID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_UniversityID" runat="server" Text='<%#Eval("Comn_UniversityID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_DepartmentID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_DepartmentID" runat="server" Text='<%#Eval("Comn_DepartmentID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PassingYear">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPassingYear" runat="server" Text='<%#Eval("PassingYear") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_OfficeID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_OfficeID" runat="server" Text='<%#Eval("Comn_OfficeID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_BloodGroup">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_BloodGroup" runat="server" Text='<%#Eval("Comn_BloodGroup") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PassportNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPassportNo" runat="server" Text='<%#Eval("PassportNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="NationalIDNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblNationalIDNo" runat="server" Text='<%#Eval("NationalIDNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="BirthRegistrationID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblBirthRegistrationID" runat="server" Text='<%#Eval("BirthRegistrationID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField1">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField1" runat="server" Text='<%#Eval("ExtraField1") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField2">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField2" runat="server" Text='<%#Eval("ExtraField2") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField3">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField3" runat="server" Text='<%#Eval("ExtraField3") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField4">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField4" runat="server" Text='<%#Eval("ExtraField4") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField5">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField5" runat="server" Text='<%#Eval("ExtraField5") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField6">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField6" runat="server" Text='<%#Eval("ExtraField6") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField7">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField7" runat="server" Text='<%#Eval("ExtraField7") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField8">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField8" runat="server" Text='<%#Eval("ExtraField8") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField9">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField9" runat="server" Text='<%#Eval("ExtraField9") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField10">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField10" runat="server" Text='<%#Eval("ExtraField10") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField11">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField11" runat="server" Text='<%#Eval("ExtraField11") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField12">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField12" runat="server" Text='<%#Eval("ExtraField12") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField13">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField13" runat="server" Text='<%#Eval("ExtraField13") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField14">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField14" runat="server" Text='<%#Eval("ExtraField14") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField15">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField15" runat="server" Text='<%#Eval("ExtraField15") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField16">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField16" runat="server" Text='<%#Eval("ExtraField16") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField17">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField17" runat="server" Text='<%#Eval("ExtraField17") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField18">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField18" runat="server" Text='<%#Eval("ExtraField18") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField19">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField19" runat="server" Text='<%#Eval("ExtraField19") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField20">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField20" runat="server" Text='<%#Eval("ExtraField20") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="AddedBy">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAddedBy" runat="server" Text='<%#Eval("AddedBy") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="AddedDate">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAddedDate" runat="server" Text='<%#Eval("AddedDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ModifiedBy">
+                    <ItemTemplate>
+                        <asp:Label ID="lblModifiedBy" runat="server" Text='<%#Eval("ModifiedBy") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ModifiedDate">
+                    <ItemTemplate>
+                        <asp:Label ID="lblModifiedDate" runat="server" Text='<%#Eval("ModifiedDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_RowStatusID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_RowStatusID" runat="server" Text='<%#Eval("Comn_RowStatusID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Delete">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbDelete" runat="server" CommandArgument='<%#Eval("Mem_MemberID") %>' OnClick="lbDelete_Click">
+                            Delete
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+    </div>
+</asp:Content>

@@ -1,0 +1,9 @@
+﻿input[type="text"] { color:black; border: 1px solid black;width:300px; }
+   select { color:black; border: 1px solid black;width:300px; }
+   
+  #tbl_PersonalInfo input[type="text"] { color:black; border: 1px solid black;width:300px; }
+  #tbl_PersonalInfo select { color:black; border: 1px solid black;width:300px; }
+   textarea{color:black; border: 1px solid black;width:300px;font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;}
+   .tr_header td{border:1px solid black;font-size:20px;padding:5px;text-align:center;color:White;background-color:#33479E;}
+   .td_Details{border:1px solid black;;}
+   .p_button input{width:450px; font-size:30px;font-weight:bold;}

@@ -1,0 +1,92 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_UniversityInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["comn_UniversityID"] != null)
+            {
+                int comn_UniversityID = Int32.Parse(Request.QueryString["comn_UniversityID"]);
+                if (comn_UniversityID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_UniversityData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_University comn_University = new Comn_University();
+
+        comn_University.Comn_UniversityName = txtComn_UniversityName.Text;
+        comn_University.Website = txtWebsite.Text;
+        comn_University.Phone = txtPhone.Text;
+        comn_University.Fax = txtFax.Text;
+        comn_University.Type = Int32.Parse(txtType.Text);
+        comn_University.Details = txtDetails.Text;
+        comn_University.OldName = txtOldName.Text;
+        int resutl = Comn_UniversityManager.InsertComn_University(comn_University);
+        Response.Redirect("AdminComn_UniversityDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_University comn_University = new Comn_University();
+        comn_University = Comn_UniversityManager.GetComn_UniversityByID(Int32.Parse(Request.QueryString["comn_UniversityID"]));
+        Comn_University tempComn_University = new Comn_University();
+        tempComn_University.Comn_UniversityID = comn_University.Comn_UniversityID;
+
+        tempComn_University.Comn_UniversityName = txtComn_UniversityName.Text;
+        tempComn_University.Website = txtWebsite.Text;
+        tempComn_University.Phone = txtPhone.Text;
+        tempComn_University.Fax = txtFax.Text;
+        tempComn_University.Type = Int32.Parse(txtType.Text);
+        tempComn_University.Details = txtDetails.Text;
+        tempComn_University.OldName = txtOldName.Text;
+        bool result = Comn_UniversityManager.UpdateComn_University(tempComn_University);
+        Response.Redirect("AdminComn_UniversityDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtComn_UniversityName.Text = "";
+        txtWebsite.Text = "";
+        txtPhone.Text = "";
+        txtFax.Text = "";
+        txtType.Text = "";
+        txtDetails.Text = "";
+        txtOldName.Text = "";
+    }
+    private void showComn_UniversityData()
+    {
+        Comn_University comn_University = new Comn_University();
+        comn_University = Comn_UniversityManager.GetComn_UniversityByID(Int32.Parse(Request.QueryString["comn_UniversityID"]));
+
+        txtComn_UniversityName.Text = comn_University.Comn_UniversityName;
+        txtWebsite.Text = comn_University.Website;
+        txtPhone.Text = comn_University.Phone;
+        txtFax.Text = comn_University.Fax;
+        txtType.Text = comn_University.Type.ToString();
+        txtDetails.Text = comn_University.Details;
+        txtOldName.Text = comn_University.OldName;
+    }
+}

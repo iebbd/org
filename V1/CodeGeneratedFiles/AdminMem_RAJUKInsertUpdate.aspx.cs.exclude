@@ -1,0 +1,118 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_RAJUKInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadMem_Member();
+            if (Request.QueryString["mem_RAJUKID"] != null)
+            {
+                int mem_RAJUKID = Int32.Parse(Request.QueryString["mem_RAJUKID"]);
+                if (mem_RAJUKID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_RAJUKData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_RAJUK mem_RAJUK = new Mem_RAJUK();
+
+        mem_RAJUK.Mem_MemberID = Int32.Parse(ddlMem_Member.SelectedValue);
+        mem_RAJUK.MembershipNo = txtMembershipNo.Text;
+        mem_RAJUK.RAJUKRegistrationNo = txtRAJUKRegistrationNo.Text;
+        mem_RAJUK.Batch = txtBatch.Text;
+        mem_RAJUK.ExamDate = txtExamDate.Text;
+        mem_RAJUK.Telephone = txtTelephone.Text;
+        mem_RAJUK.Email = txtEmail.Text;
+        mem_RAJUK.TypeOfMemeber = txtTypeOfMemeber.Text;
+        mem_RAJUK.MembershipNoValue = Int32.Parse(txtMembershipNoValue.Text);
+        mem_RAJUK.MembershipNoValueChar = txtMembershipNoValueChar.Text;
+        int resutl = Mem_RAJUKManager.InsertMem_RAJUK(mem_RAJUK);
+        Response.Redirect("AdminMem_RAJUKDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_RAJUK mem_RAJUK = new Mem_RAJUK();
+        mem_RAJUK = Mem_RAJUKManager.GetMem_RAJUKByID(Int32.Parse(Request.QueryString["mem_RAJUKID"]));
+        Mem_RAJUK tempMem_RAJUK = new Mem_RAJUK();
+        tempMem_RAJUK.Mem_RAJUKID = mem_RAJUK.Mem_RAJUKID;
+
+        tempMem_RAJUK.Mem_MemberID = Int32.Parse(ddlMem_Member.SelectedValue);
+        tempMem_RAJUK.MembershipNo = txtMembershipNo.Text;
+        tempMem_RAJUK.RAJUKRegistrationNo = txtRAJUKRegistrationNo.Text;
+        tempMem_RAJUK.Batch = txtBatch.Text;
+        tempMem_RAJUK.ExamDate = txtExamDate.Text;
+        tempMem_RAJUK.Telephone = txtTelephone.Text;
+        tempMem_RAJUK.Email = txtEmail.Text;
+        tempMem_RAJUK.TypeOfMemeber = txtTypeOfMemeber.Text;
+        tempMem_RAJUK.MembershipNoValue = Int32.Parse(txtMembershipNoValue.Text);
+        tempMem_RAJUK.MembershipNoValueChar = txtMembershipNoValueChar.Text;
+        bool result = Mem_RAJUKManager.UpdateMem_RAJUK(tempMem_RAJUK);
+        Response.Redirect("AdminMem_RAJUKDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        ddlMem_Member.SelectedIndex = 0;
+        txtMembershipNo.Text = "";
+        txtRAJUKRegistrationNo.Text = "";
+        txtBatch.Text = "";
+        txtExamDate.Text = "";
+        txtTelephone.Text = "";
+        txtEmail.Text = "";
+        txtTypeOfMemeber.Text = "";
+        txtMembershipNoValue.Text = "";
+        txtMembershipNoValueChar.Text = "";
+    }
+    private void showMem_RAJUKData()
+    {
+        Mem_RAJUK mem_RAJUK = new Mem_RAJUK();
+        mem_RAJUK = Mem_RAJUKManager.GetMem_RAJUKByID(Int32.Parse(Request.QueryString["mem_RAJUKID"]));
+
+        ddlMem_Member.SelectedValue = mem_RAJUK.Mem_MemberID.ToString();
+        txtMembershipNo.Text = mem_RAJUK.MembershipNo;
+        txtRAJUKRegistrationNo.Text = mem_RAJUK.RAJUKRegistrationNo;
+        txtBatch.Text = mem_RAJUK.Batch;
+        txtExamDate.Text = mem_RAJUK.ExamDate;
+        txtTelephone.Text = mem_RAJUK.Telephone;
+        txtEmail.Text = mem_RAJUK.Email;
+        txtTypeOfMemeber.Text = mem_RAJUK.TypeOfMemeber;
+        txtMembershipNoValue.Text = mem_RAJUK.MembershipNoValue.ToString();
+        txtMembershipNoValueChar.Text = mem_RAJUK.MembershipNoValueChar;
+    }
+    private void loadMem_Member()
+    {
+        ListItem li = new ListItem("Select Mem_Member...", "0");
+        ddlMem_Member.Items.Add(li);
+
+        List<Mem_Member> mem_Members = new List<Mem_Member>();
+        mem_Members = Mem_MemberManager.GetAllMem_Members();
+        foreach (Mem_Member mem_Member in mem_Members)
+        {
+            ListItem item = new ListItem(mem_Member.Mem_MemberName.ToString(), mem_Member.Mem_MemberID.ToString());
+            ddlMem_Member.Items.Add(item);
+        }
+    }
+}

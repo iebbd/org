@@ -1,0 +1,88 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_ApprovedCouncilMeetingInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["mem_ApprovedCouncilMeetingID"] != null)
+            {
+                int mem_ApprovedCouncilMeetingID = Int32.Parse(Request.QueryString["mem_ApprovedCouncilMeetingID"]);
+                if (mem_ApprovedCouncilMeetingID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_ApprovedCouncilMeetingData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_ApprovedCouncilMeeting mem_ApprovedCouncilMeeting = new Mem_ApprovedCouncilMeeting();
+
+        mem_ApprovedCouncilMeeting.Mem_ApprovedCouncilMeetingName = txtMem_ApprovedCouncilMeetingName.Text;
+        mem_ApprovedCouncilMeeting.MeetingDate = txtMeetingDate.Text;
+        mem_ApprovedCouncilMeeting.Chairman = txtChairman.Text;
+        mem_ApprovedCouncilMeeting.MembershipCommittee = txtMembershipCommittee.Text;
+        mem_ApprovedCouncilMeeting.MemberSecretary = txtMemberSecretary.Text;
+        mem_ApprovedCouncilMeeting.Details = txtDetails.Text;
+        int resutl = Mem_ApprovedCouncilMeetingManager.InsertMem_ApprovedCouncilMeeting(mem_ApprovedCouncilMeeting);
+        Response.Redirect("AdminMem_ApprovedCouncilMeetingDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_ApprovedCouncilMeeting mem_ApprovedCouncilMeeting = new Mem_ApprovedCouncilMeeting();
+        mem_ApprovedCouncilMeeting = Mem_ApprovedCouncilMeetingManager.GetMem_ApprovedCouncilMeetingByID(Int32.Parse(Request.QueryString["mem_ApprovedCouncilMeetingID"]));
+        Mem_ApprovedCouncilMeeting tempMem_ApprovedCouncilMeeting = new Mem_ApprovedCouncilMeeting();
+        tempMem_ApprovedCouncilMeeting.Mem_ApprovedCouncilMeetingID = mem_ApprovedCouncilMeeting.Mem_ApprovedCouncilMeetingID;
+
+        tempMem_ApprovedCouncilMeeting.Mem_ApprovedCouncilMeetingName = txtMem_ApprovedCouncilMeetingName.Text;
+        tempMem_ApprovedCouncilMeeting.MeetingDate = txtMeetingDate.Text;
+        tempMem_ApprovedCouncilMeeting.Chairman = txtChairman.Text;
+        tempMem_ApprovedCouncilMeeting.MembershipCommittee = txtMembershipCommittee.Text;
+        tempMem_ApprovedCouncilMeeting.MemberSecretary = txtMemberSecretary.Text;
+        tempMem_ApprovedCouncilMeeting.Details = txtDetails.Text;
+        bool result = Mem_ApprovedCouncilMeetingManager.UpdateMem_ApprovedCouncilMeeting(tempMem_ApprovedCouncilMeeting);
+        Response.Redirect("AdminMem_ApprovedCouncilMeetingDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtMem_ApprovedCouncilMeetingName.Text = "";
+        txtMeetingDate.Text = "";
+        txtChairman.Text = "";
+        txtMembershipCommittee.Text = "";
+        txtMemberSecretary.Text = "";
+        txtDetails.Text = "";
+    }
+    private void showMem_ApprovedCouncilMeetingData()
+    {
+        Mem_ApprovedCouncilMeeting mem_ApprovedCouncilMeeting = new Mem_ApprovedCouncilMeeting();
+        mem_ApprovedCouncilMeeting = Mem_ApprovedCouncilMeetingManager.GetMem_ApprovedCouncilMeetingByID(Int32.Parse(Request.QueryString["mem_ApprovedCouncilMeetingID"]));
+
+        txtMem_ApprovedCouncilMeetingName.Text = mem_ApprovedCouncilMeeting.Mem_ApprovedCouncilMeetingName;
+        txtMeetingDate.Text = mem_ApprovedCouncilMeeting.MeetingDate;
+        txtChairman.Text = mem_ApprovedCouncilMeeting.Chairman;
+        txtMembershipCommittee.Text = mem_ApprovedCouncilMeeting.MembershipCommittee;
+        txtMemberSecretary.Text = mem_ApprovedCouncilMeeting.MemberSecretary;
+        txtDetails.Text = mem_ApprovedCouncilMeeting.Details;
+    }
+}

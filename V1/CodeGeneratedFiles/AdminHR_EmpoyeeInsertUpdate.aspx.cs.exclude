@@ -1,0 +1,68 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminHR_EmpoyeeInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["hR_EmpoyeeID"] != null)
+            {
+                int hR_EmpoyeeID = Int32.Parse(Request.QueryString["hR_EmpoyeeID"]);
+                if (hR_EmpoyeeID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showHR_EmpoyeeData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        HR_Empoyee hR_Empoyee = new HR_Empoyee();
+
+        hR_Empoyee.HR_EmpoyeeName = txtHR_EmpoyeeName.Text;
+        int resutl = HR_EmpoyeeManager.InsertHR_Empoyee(hR_Empoyee);
+        Response.Redirect("AdminHR_EmpoyeeDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        HR_Empoyee hR_Empoyee = new HR_Empoyee();
+        hR_Empoyee = HR_EmpoyeeManager.GetHR_EmpoyeeByID(Int32.Parse(Request.QueryString["hR_EmpoyeeID"]));
+        HR_Empoyee tempHR_Empoyee = new HR_Empoyee();
+        tempHR_Empoyee.HR_EmpoyeeID = hR_Empoyee.HR_EmpoyeeID;
+
+        tempHR_Empoyee.HR_EmpoyeeName = txtHR_EmpoyeeName.Text;
+        bool result = HR_EmpoyeeManager.UpdateHR_Empoyee(tempHR_Empoyee);
+        Response.Redirect("AdminHR_EmpoyeeDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtHR_EmpoyeeName.Text = "";
+    }
+    private void showHR_EmpoyeeData()
+    {
+        HR_Empoyee hR_Empoyee = new HR_Empoyee();
+        hR_Empoyee = HR_EmpoyeeManager.GetHR_EmpoyeeByID(Int32.Parse(Request.QueryString["hR_EmpoyeeID"]));
+
+        txtHR_EmpoyeeName.Text = hR_Empoyee.HR_EmpoyeeName;
+    }
+}

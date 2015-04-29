@@ -1,0 +1,68 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_ResultTypeInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["comn_ResultTypeID"] != null)
+            {
+                int comn_ResultTypeID = Int32.Parse(Request.QueryString["comn_ResultTypeID"]);
+                if (comn_ResultTypeID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_ResultTypeData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_ResultType comn_ResultType = new Comn_ResultType();
+
+        comn_ResultType.Comn_ResultTypeName = txtComn_ResultTypeName.Text;
+        int resutl = Comn_ResultTypeManager.InsertComn_ResultType(comn_ResultType);
+        Response.Redirect("AdminComn_ResultTypeDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_ResultType comn_ResultType = new Comn_ResultType();
+        comn_ResultType = Comn_ResultTypeManager.GetComn_ResultTypeByID(Int32.Parse(Request.QueryString["comn_ResultTypeID"]));
+        Comn_ResultType tempComn_ResultType = new Comn_ResultType();
+        tempComn_ResultType.Comn_ResultTypeID = comn_ResultType.Comn_ResultTypeID;
+
+        tempComn_ResultType.Comn_ResultTypeName = txtComn_ResultTypeName.Text;
+        bool result = Comn_ResultTypeManager.UpdateComn_ResultType(tempComn_ResultType);
+        Response.Redirect("AdminComn_ResultTypeDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtComn_ResultTypeName.Text = "";
+    }
+    private void showComn_ResultTypeData()
+    {
+        Comn_ResultType comn_ResultType = new Comn_ResultType();
+        comn_ResultType = Comn_ResultTypeManager.GetComn_ResultTypeByID(Int32.Parse(Request.QueryString["comn_ResultTypeID"]));
+
+        txtComn_ResultTypeName.Text = comn_ResultType.Comn_ResultTypeName;
+    }
+}

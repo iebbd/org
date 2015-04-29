@@ -1,0 +1,102 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_SubDivisionInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadMem_Division();
+            if (Request.QueryString["mem_SubDivisionID"] != null)
+            {
+                int mem_SubDivisionID = Int32.Parse(Request.QueryString["mem_SubDivisionID"]);
+                if (mem_SubDivisionID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_SubDivisionData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_SubDivision mem_SubDivision = new Mem_SubDivision();
+
+        mem_SubDivision.Mem_SubDivisionName = txtMem_SubDivisionName.Text;
+        mem_SubDivision.Mem_DivisionID = Int32.Parse(ddlMem_Division.SelectedValue);
+        mem_SubDivision.Website = txtWebsite.Text;
+        mem_SubDivision.FullName = txtFullName.Text;
+        mem_SubDivision.ContactInfo = txtContactInfo.Text;
+        mem_SubDivision.Details = txtDetails.Text;
+        int resutl = Mem_SubDivisionManager.InsertMem_SubDivision(mem_SubDivision);
+        Response.Redirect("AdminMem_SubDivisionDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_SubDivision mem_SubDivision = new Mem_SubDivision();
+        mem_SubDivision = Mem_SubDivisionManager.GetMem_SubDivisionByID(Int32.Parse(Request.QueryString["mem_SubDivisionID"]));
+        Mem_SubDivision tempMem_SubDivision = new Mem_SubDivision();
+        tempMem_SubDivision.Mem_SubDivisionID = mem_SubDivision.Mem_SubDivisionID;
+
+        tempMem_SubDivision.Mem_SubDivisionName = txtMem_SubDivisionName.Text;
+        tempMem_SubDivision.Mem_DivisionID = Int32.Parse(ddlMem_Division.SelectedValue);
+        tempMem_SubDivision.Website = txtWebsite.Text;
+        tempMem_SubDivision.FullName = txtFullName.Text;
+        tempMem_SubDivision.ContactInfo = txtContactInfo.Text;
+        tempMem_SubDivision.Details = txtDetails.Text;
+        bool result = Mem_SubDivisionManager.UpdateMem_SubDivision(tempMem_SubDivision);
+        Response.Redirect("AdminMem_SubDivisionDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtMem_SubDivisionName.Text = "";
+        ddlMem_Division.SelectedIndex = 0;
+        txtWebsite.Text = "";
+        txtFullName.Text = "";
+        txtContactInfo.Text = "";
+        txtDetails.Text = "";
+    }
+    private void showMem_SubDivisionData()
+    {
+        Mem_SubDivision mem_SubDivision = new Mem_SubDivision();
+        mem_SubDivision = Mem_SubDivisionManager.GetMem_SubDivisionByID(Int32.Parse(Request.QueryString["mem_SubDivisionID"]));
+
+        txtMem_SubDivisionName.Text = mem_SubDivision.Mem_SubDivisionName;
+        ddlMem_Division.SelectedValue = mem_SubDivision.Mem_DivisionID.ToString();
+        txtWebsite.Text = mem_SubDivision.Website;
+        txtFullName.Text = mem_SubDivision.FullName;
+        txtContactInfo.Text = mem_SubDivision.ContactInfo;
+        txtDetails.Text = mem_SubDivision.Details;
+    }
+    private void loadMem_Division()
+    {
+        ListItem li = new ListItem("Select Mem_Division...", "0");
+        ddlMem_Division.Items.Add(li);
+
+        List<Mem_Division> mem_Divisions = new List<Mem_Division>();
+        mem_Divisions = Mem_DivisionManager.GetAllMem_Divisions();
+        foreach (Mem_Division mem_Division in mem_Divisions)
+        {
+            ListItem item = new ListItem(mem_Division.Mem_DivisionName.ToString(), mem_Division.Mem_DivisionID.ToString());
+            ddlMem_Division.Items.Add(item);
+        }
+    }
+}

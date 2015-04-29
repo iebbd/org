@@ -1,0 +1,104 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_RecomendationInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadMem_Member();
+            loadComn_RowSatus();
+            if (Request.QueryString["mem_RecomendationID"] != null)
+            {
+                int mem_RecomendationID = Int32.Parse(Request.QueryString["mem_RecomendationID"]);
+                if (mem_RecomendationID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_RecomendationData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_Recomendation mem_Recomendation = new Mem_Recomendation();
+
+        mem_Recomendation.RecomendationDate = txtRecomendationDate.Text;
+        mem_Recomendation.Mem_MemberID = Int32.Parse(ddlMem_Member.SelectedValue);
+        mem_Recomendation.Comn_RowSatusID = Int32.Parse(ddlComn_RowSatus.SelectedValue);
+        int resutl = Mem_RecomendationManager.InsertMem_Recomendation(mem_Recomendation);
+        Response.Redirect("AdminMem_RecomendationDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_Recomendation mem_Recomendation = new Mem_Recomendation();
+        mem_Recomendation = Mem_RecomendationManager.GetMem_RecomendationByID(Int32.Parse(Request.QueryString["mem_RecomendationID"]));
+        Mem_Recomendation tempMem_Recomendation = new Mem_Recomendation();
+        tempMem_Recomendation.Mem_RecomendationID = mem_Recomendation.Mem_RecomendationID;
+
+        tempMem_Recomendation.RecomendationDate = txtRecomendationDate.Text;
+        tempMem_Recomendation.Mem_MemberID = Int32.Parse(ddlMem_Member.SelectedValue);
+        tempMem_Recomendation.Comn_RowSatusID = Int32.Parse(ddlComn_RowSatus.SelectedValue);
+        bool result = Mem_RecomendationManager.UpdateMem_Recomendation(tempMem_Recomendation);
+        Response.Redirect("AdminMem_RecomendationDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtRecomendationDate.Text = "";
+        ddlMem_Member.SelectedIndex = 0;
+        ddlComn_RowSatus.SelectedIndex = 0;
+    }
+    private void showMem_RecomendationData()
+    {
+        Mem_Recomendation mem_Recomendation = new Mem_Recomendation();
+        mem_Recomendation = Mem_RecomendationManager.GetMem_RecomendationByID(Int32.Parse(Request.QueryString["mem_RecomendationID"]));
+
+        txtRecomendationDate.Text = mem_Recomendation.RecomendationDate;
+        ddlMem_Member.SelectedValue = mem_Recomendation.Mem_MemberID.ToString();
+        ddlComn_RowSatus.SelectedValue = mem_Recomendation.Comn_RowSatusID.ToString();
+    }
+    private void loadMem_Member()
+    {
+        ListItem li = new ListItem("Select Mem_Member...", "0");
+        ddlMem_Member.Items.Add(li);
+
+        List<Mem_Member> mem_Members = new List<Mem_Member>();
+        mem_Members = Mem_MemberManager.GetAllMem_Members();
+        foreach (Mem_Member mem_Member in mem_Members)
+        {
+            ListItem item = new ListItem(mem_Member.Mem_MemberName.ToString(), mem_Member.Mem_MemberID.ToString());
+            ddlMem_Member.Items.Add(item);
+        }
+    }
+    private void loadComn_RowSatus()
+    {
+        ListItem li = new ListItem("Select Comn_RowSatus...", "0");
+        ddlComn_RowSatus.Items.Add(li);
+
+        List<Comn_RowSatus> comn_RowSatuss = new List<Comn_RowSatus>();
+        comn_RowSatuss = Comn_RowSatusManager.GetAllComn_RowSatuss();
+        foreach (Comn_RowSatus comn_RowSatus in comn_RowSatuss)
+        {
+            ListItem item = new ListItem(comn_RowSatus.Comn_RowSatusName.ToString(), comn_RowSatus.Comn_RowSatusID.ToString());
+            ddlComn_RowSatus.Items.Add(item);
+        }
+    }
+}

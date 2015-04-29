@@ -1,0 +1,118 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_FileInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadComn_FileType();
+            loadComn_RowStatus();
+            if (Request.QueryString["comn_FileID"] != null)
+            {
+                int comn_FileID = Int32.Parse(Request.QueryString["comn_FileID"]);
+                if (comn_FileID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_FileData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_File comn_File = new Comn_File();
+
+        comn_File.Comn_FileTypeID = Int32.Parse(ddlComn_FileType.SelectedValue);
+        comn_File.FileName = txtFileName.Text;
+        comn_File.AddedBy = Int32.Parse(txtAddedBy.Text);
+        comn_File.AddedDate = DateTime.Now;
+        comn_File.UpdatedBy = Int32.Parse(txtUpdatedBy.Text);
+        comn_File.UpdatedDate = txtUpdatedDate.Text;
+        comn_File.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        int resutl = Comn_FileManager.InsertComn_File(comn_File);
+        Response.Redirect("AdminComn_FileDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_File comn_File = new Comn_File();
+        comn_File = Comn_FileManager.GetComn_FileByID(Int32.Parse(Request.QueryString["comn_FileID"]));
+        Comn_File tempComn_File = new Comn_File();
+        tempComn_File.Comn_FileID = comn_File.Comn_FileID;
+
+        tempComn_File.Comn_FileTypeID = Int32.Parse(ddlComn_FileType.SelectedValue);
+        tempComn_File.FileName = txtFileName.Text;
+        tempComn_File.AddedBy = Int32.Parse(txtAddedBy.Text);
+        tempComn_File.AddedDate = DateTime.Now;
+        tempComn_File.UpdatedBy = Int32.Parse(txtUpdatedBy.Text);
+        tempComn_File.UpdatedDate = txtUpdatedDate.Text;
+        tempComn_File.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        bool result = Comn_FileManager.UpdateComn_File(tempComn_File);
+        Response.Redirect("AdminComn_FileDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        ddlComn_FileType.SelectedIndex = 0;
+        txtFileName.Text = "";
+        txtAddedBy.Text = "";
+        txtUpdatedBy.Text = "";
+        txtUpdatedDate.Text = "";
+        ddlComn_RowStatus.SelectedIndex = 0;
+    }
+    private void showComn_FileData()
+    {
+        Comn_File comn_File = new Comn_File();
+        comn_File = Comn_FileManager.GetComn_FileByID(Int32.Parse(Request.QueryString["comn_FileID"]));
+
+        ddlComn_FileType.SelectedValue = comn_File.Comn_FileTypeID.ToString();
+        txtFileName.Text = comn_File.FileName;
+        txtAddedBy.Text = comn_File.AddedBy.ToString();
+        txtUpdatedBy.Text = comn_File.UpdatedBy.ToString();
+        txtUpdatedDate.Text = comn_File.UpdatedDate;
+        ddlComn_RowStatus.SelectedValue = comn_File.Comn_RowStatusID.ToString();
+    }
+    private void loadComn_FileType()
+    {
+        ListItem li = new ListItem("Select Comn_FileType...", "0");
+        ddlComn_FileType.Items.Add(li);
+
+        List<Comn_FileType> comn_FileTypes = new List<Comn_FileType>();
+        comn_FileTypes = Comn_FileTypeManager.GetAllComn_FileTypes();
+        foreach (Comn_FileType comn_FileType in comn_FileTypes)
+        {
+            ListItem item = new ListItem(comn_FileType.Comn_FileTypeName.ToString(), comn_FileType.Comn_FileTypeID.ToString());
+            ddlComn_FileType.Items.Add(item);
+        }
+    }
+    private void loadComn_RowStatus()
+    {
+        ListItem li = new ListItem("Select Comn_RowStatus...", "0");
+        ddlComn_RowStatus.Items.Add(li);
+
+        List<Comn_RowStatus> comn_RowStatuss = new List<Comn_RowStatus>();
+        comn_RowStatuss = Comn_RowStatusManager.GetAllComn_RowStatuss();
+        foreach (Comn_RowStatus comn_RowStatus in comn_RowStatuss)
+        {
+            ListItem item = new ListItem(comn_RowStatus.Comn_RowStatusName.ToString(), comn_RowStatus.Comn_RowStatusID.ToString());
+            ddlComn_RowStatus.Items.Add(item);
+        }
+    }
+}

@@ -1,0 +1,152 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_FeesInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadMem_Member();
+            loadComn_RowStatus();
+            loadComn_PaymentBy();
+            if (Request.QueryString["mem_FeesID"] != null)
+            {
+                int mem_FeesID = Int32.Parse(Request.QueryString["mem_FeesID"]);
+                if (mem_FeesID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_FeesData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_Fees mem_Fees = new Mem_Fees();
+
+        mem_Fees.Mem_MemberID = Int32.Parse(ddlMem_Member.SelectedValue);
+        mem_Fees.Amount = Decimal.Parse(txtAmount.Text);
+        mem_Fees.DatePaid = txtDatePaid.Text;
+        mem_Fees.PaidFor = txtPaidFor.Text;
+        mem_Fees.ExtraField = txtExtraField.Text;
+        mem_Fees.AddedDate = DateTime.Now;
+        mem_Fees.AddedBy = Int32.Parse(txtAddedBy.Text);
+        mem_Fees.ModifiedBy = Int32.Parse(txtModifiedBy.Text);
+        mem_Fees.ModifiedDate = txtModifiedDate.Text;
+        mem_Fees.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        mem_Fees.RefferenceNo = txtRefferenceNo.Text;
+        mem_Fees.Comn_PaymentByID = Int32.Parse(ddlComn_PaymentBy.SelectedValue);
+        int resutl = Mem_FeesManager.InsertMem_Fees(mem_Fees);
+        Response.Redirect("AdminMem_FeesDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_Fees mem_Fees = new Mem_Fees();
+        mem_Fees = Mem_FeesManager.GetMem_FeesByID(Int32.Parse(Request.QueryString["mem_FeesID"]));
+        Mem_Fees tempMem_Fees = new Mem_Fees();
+        tempMem_Fees.Mem_FeesID = mem_Fees.Mem_FeesID;
+
+        tempMem_Fees.Mem_MemberID = Int32.Parse(ddlMem_Member.SelectedValue);
+        tempMem_Fees.Amount = Decimal.Parse(txtAmount.Text);
+        tempMem_Fees.DatePaid = txtDatePaid.Text;
+        tempMem_Fees.PaidFor = txtPaidFor.Text;
+        tempMem_Fees.ExtraField = txtExtraField.Text;
+        tempMem_Fees.AddedDate = DateTime.Now;
+        tempMem_Fees.AddedBy = Int32.Parse(txtAddedBy.Text);
+        tempMem_Fees.ModifiedBy = Int32.Parse(txtModifiedBy.Text);
+        tempMem_Fees.ModifiedDate = txtModifiedDate.Text;
+        tempMem_Fees.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        tempMem_Fees.RefferenceNo = txtRefferenceNo.Text;
+        tempMem_Fees.Comn_PaymentByID = Int32.Parse(ddlComn_PaymentBy.SelectedValue);
+        bool result = Mem_FeesManager.UpdateMem_Fees(tempMem_Fees);
+        Response.Redirect("AdminMem_FeesDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        ddlMem_Member.SelectedIndex = 0;
+        txtAmount.Text = "";
+        txtDatePaid.Text = "";
+        txtPaidFor.Text = "";
+        txtExtraField.Text = "";
+        txtAddedBy.Text = "";
+        txtModifiedBy.Text = "";
+        txtModifiedDate.Text = "";
+        ddlComn_RowStatus.SelectedIndex = 0;
+        txtRefferenceNo.Text = "";
+        ddlComn_PaymentBy.SelectedIndex = 0;
+    }
+    private void showMem_FeesData()
+    {
+        Mem_Fees mem_Fees = new Mem_Fees();
+        mem_Fees = Mem_FeesManager.GetMem_FeesByID(Int32.Parse(Request.QueryString["mem_FeesID"]));
+
+        ddlMem_Member.SelectedValue = mem_Fees.Mem_MemberID.ToString();
+        txtAmount.Text = mem_Fees.Amount.ToString();
+        txtDatePaid.Text = mem_Fees.DatePaid;
+        txtPaidFor.Text = mem_Fees.PaidFor;
+        txtExtraField.Text = mem_Fees.ExtraField;
+        txtAddedBy.Text = mem_Fees.AddedBy.ToString();
+        txtModifiedBy.Text = mem_Fees.ModifiedBy.ToString();
+        txtModifiedDate.Text = mem_Fees.ModifiedDate;
+        ddlComn_RowStatus.SelectedValue = mem_Fees.Comn_RowStatusID.ToString();
+        txtRefferenceNo.Text = mem_Fees.RefferenceNo;
+        ddlComn_PaymentBy.SelectedValue = mem_Fees.Comn_PaymentByID.ToString();
+    }
+    private void loadMem_Member()
+    {
+        ListItem li = new ListItem("Select Mem_Member...", "0");
+        ddlMem_Member.Items.Add(li);
+
+        List<Mem_Member> mem_Members = new List<Mem_Member>();
+        mem_Members = Mem_MemberManager.GetAllMem_Members();
+        foreach (Mem_Member mem_Member in mem_Members)
+        {
+            ListItem item = new ListItem(mem_Member.Mem_MemberName.ToString(), mem_Member.Mem_MemberID.ToString());
+            ddlMem_Member.Items.Add(item);
+        }
+    }
+    private void loadComn_RowStatus()
+    {
+        ListItem li = new ListItem("Select Comn_RowStatus...", "0");
+        ddlComn_RowStatus.Items.Add(li);
+
+        List<Comn_RowStatus> comn_RowStatuss = new List<Comn_RowStatus>();
+        comn_RowStatuss = Comn_RowStatusManager.GetAllComn_RowStatuss();
+        foreach (Comn_RowStatus comn_RowStatus in comn_RowStatuss)
+        {
+            ListItem item = new ListItem(comn_RowStatus.Comn_RowStatusName.ToString(), comn_RowStatus.Comn_RowStatusID.ToString());
+            ddlComn_RowStatus.Items.Add(item);
+        }
+    }
+    private void loadComn_PaymentBy()
+    {
+        ListItem li = new ListItem("Select Comn_PaymentBy...", "0");
+        ddlComn_PaymentBy.Items.Add(li);
+
+        List<Comn_PaymentBy> comn_PaymentBies = new List<Comn_PaymentBy>();
+        comn_PaymentBies = Comn_PaymentByManager.GetAllComn_PaymentBies();
+        foreach (Comn_PaymentBy comn_PaymentBy in comn_PaymentBies)
+        {
+            ListItem item = new ListItem(comn_PaymentBy.Comn_PaymentByName.ToString(), comn_PaymentBy.Comn_PaymentByID.ToString());
+            ddlComn_PaymentBy.Items.Add(item);
+        }
+    }
+}

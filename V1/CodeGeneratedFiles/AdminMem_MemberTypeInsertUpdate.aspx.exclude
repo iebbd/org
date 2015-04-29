@@ -1,0 +1,107 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" 
+CodeFile="AdminMem_MemberTypeInsertUpdate.aspx.cs" Inherits="AdminMem_MemberTypeInsertUpdate" Title="Mem_MemberType Insert/Update By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .tableCss
+        {
+        	text-align: left;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class="tableCss">
+        <table>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMem_MemberTypeName" runat="server" Text="Mem_MemberTypeName: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMem_MemberTypeName" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMem_MemberCategoryID" runat="server" Text="Mem_MemberCategoryID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMem_MemberCategory" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblDetails" runat="server" Text="Details: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtDetails" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblEntranceFee" runat="server" Text="EntranceFee: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtEntranceFee" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblAnnaralSubscriptionFee" runat="server" Text="AnnaralSubscriptionFee: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtAnnaralSubscriptionFee" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblDiplomaFee" runat="server" Text="DiplomaFee: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtDiplomaFee" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblAge" runat="server" Text="Age: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtAge" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExperience" runat="server" Text="Experience: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExperience" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update" 
+                        OnClick="btnUpdate_Click" />
+                </td>
+                <td>
+                    <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</asp:Content>

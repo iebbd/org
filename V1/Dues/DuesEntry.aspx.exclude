@@ -1,0 +1,130 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageWithoutChat.master" AutoEventWireup="true" CodeFile="DuesEntry.aspx.cs" Inherits="VoterList_DuesEntry" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="headContentPlaceHolder" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+<table>
+    <tr>
+        <td>Membership No:</td>
+        <td>
+            <asp:TextBox ID="txtMemebershipNo" runat="server"
+                ></asp:TextBox>
+                <asp:Button ID="btnSearch" runat="server" Text="Search" 
+                onclick="btnSearch_Click" />
+        </td>
+        <td>Amount</td>
+        <td>
+            <asp:TextBox ID="txtAmount" runat="server"></asp:TextBox>
+            
+        </td>
+        <td>Date</td>
+        <td>
+            <asp:TextBox ID="txtDatePaid" runat="server"></asp:TextBox>
+            <ajaxToolkit:CalendarExtender Format="dd MMM yyyy" ID="CalendarExtender1" runat="server" TargetControlID="txtDatePaid">
+                                    </ajaxToolkit:CalendarExtender>
+        </td>
+        </tr><tr>
+        <td>Paid For</td>
+        <td>
+            <asp:DropDownList ID="ddlPaidFor" runat="server">
+            <asp:ListItem Value="0" Text="select"></asp:ListItem>
+            <asp:ListItem Value="Life" Text="Life"></asp:ListItem>
+            <asp:ListItem Value="Above 66" Text="Above 66"></asp:ListItem>
+            <asp:ListItem Value="10-11" Text="10-11"></asp:ListItem>
+            <asp:ListItem Value="11-12" Text="11-12"></asp:ListItem>
+            <asp:ListItem Value="12-13" Text="12-13"></asp:ListItem>
+            <asp:ListItem Value="13-14" Text="13-14"></asp:ListItem>
+            <asp:ListItem Value="14-15" Text="14-15"></asp:ListItem>
+            <asp:ListItem Value="15-16" Text="15-16"></asp:ListItem>
+            <asp:ListItem Value="16-17" Text="16-17"></asp:ListItem>
+            <asp:ListItem Value="17-18" Text="17-18"></asp:ListItem>
+            <asp:ListItem Value="18-19" Text="18-19"></asp:ListItem>
+            <asp:ListItem Value="19-20" Text="19-20"></asp:ListItem>
+            <asp:ListItem Value="20-21" Text="20-21"></asp:ListItem>
+            <asp:ListItem Value="20-21" Text="20-21"></asp:ListItem>
+            <asp:ListItem Value="21-22" Text="21-22"></asp:ListItem>
+            <asp:ListItem Value="22-23" Text="22-23"></asp:ListItem>
+            <asp:ListItem Value="23-24" Text="23-24"></asp:ListItem>
+            <asp:ListItem Value="24-25" Text="24-25"></asp:ListItem>
+            <asp:ListItem Value="25-26" Text="25-26"></asp:ListItem>
+            <asp:ListItem Value="26-27" Text="26-27"></asp:ListItem>
+            <asp:ListItem Value="27-28" Text="27-28"></asp:ListItem>
+            <asp:ListItem Value="28-29" Text="28-29"></asp:ListItem>
+            <asp:ListItem Value="29-30" Text="29-30"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td>Entry Date</td>
+        <td>
+            <asp:TextBox ID="txtEntryDate" runat="server" Enabled="False"></asp:TextBox>
+        </td>
+        <td></td>
+        <td>
+            <asp:Button ID="btnSubmit" runat="server" Text="Save" 
+                onclick="btnSubmit_Click" />
+        </td>
+    </tr>
+    <tr>
+        
+        <td >Name</td>
+        <td colspan="4">
+            <asp:Label ID="lblName" runat="server" Text="" ForeColor="White"></asp:Label>
+        </td>
+        <td>
+            
+        </td>
+        </tr>
+        <tr>
+        <td colspan="6"><a href="AllDues.aspx" target="_blank">Payment History</a></td>
+        </tr>
+        <tr>
+        
+        <td colspan="6">
+            <asp:GridView ID="gvPaymentHisotry" 
+             runat="server" AutoGenerateColumns="false" CssClass="gridCss">
+            <Columns>
+                
+                <asp:TemplateField HeaderText="Membership No">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMembershipNo" runat="server" Text='<%#Eval("MembershipNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Amount">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAmount" runat="server" Text='<%#Eval("Amount") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Date Paid">
+                    <ItemTemplate>
+                        <asp:Label ID="lblDatePaid" runat="server" Text='<%#Eval("DatePaid") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PaidFor">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPaidFor" runat="server" Text='<%#Eval("PaidFor") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Entry Date">
+                    <ItemTemplate>
+                        <asp:Label ID="lblEntryDate" runat="server" Text='<%#Eval("EntryDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Select">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbSelect" runat="server" CommandArgument='<%#Eval("ID") %>' OnClick="lbSelect_Click">
+                            Delete
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+        </td>
+    </tr>
+</table>
+</asp:Content>
+

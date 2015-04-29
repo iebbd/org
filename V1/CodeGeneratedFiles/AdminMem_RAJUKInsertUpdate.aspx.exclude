@@ -1,0 +1,127 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" 
+CodeFile="AdminMem_RAJUKInsertUpdate.aspx.cs" Inherits="AdminMem_RAJUKInsertUpdate" Title="Mem_RAJUK Insert/Update By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .tableCss
+        {
+        	text-align: left;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class="tableCss">
+        <table>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMem_MemberID" runat="server" Text="Mem_MemberID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMem_Member" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMembershipNo" runat="server" Text="MembershipNo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMembershipNo" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblRAJUKRegistrationNo" runat="server" Text="RAJUKRegistrationNo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtRAJUKRegistrationNo" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblBatch" runat="server" Text="Batch: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtBatch" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExamDate" runat="server" Text="ExamDate: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExamDate" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblTelephone" runat="server" Text="Telephone: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtTelephone" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblEmail" runat="server" Text="Email: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtEmail" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblTypeOfMemeber" runat="server" Text="TypeOfMemeber: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtTypeOfMemeber" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMembershipNoValue" runat="server" Text="MembershipNoValue: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMembershipNoValue" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMembershipNoValueChar" runat="server" Text="MembershipNoValueChar: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMembershipNoValueChar" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update" 
+                        OnClick="btnUpdate_Click" />
+                </td>
+                <td>
+                    <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</asp:Content>

@@ -1,0 +1,87 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" 
+CodeFile="AdminMem_ApprovedCouncilMeetingInsertUpdate.aspx.cs" Inherits="AdminMem_ApprovedCouncilMeetingInsertUpdate" Title="Mem_ApprovedCouncilMeeting Insert/Update By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .tableCss
+        {
+        	text-align: left;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class="tableCss">
+        <table>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMem_ApprovedCouncilMeetingName" runat="server" Text="Mem_ApprovedCouncilMeetingName: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMem_ApprovedCouncilMeetingName" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMeetingDate" runat="server" Text="MeetingDate: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMeetingDate" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblChairman" runat="server" Text="Chairman: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtChairman" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMembershipCommittee" runat="server" Text="MembershipCommittee: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMembershipCommittee" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMemberSecretary" runat="server" Text="MemberSecretary: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMemberSecretary" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblDetails" runat="server" Text="Details: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtDetails" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update" 
+                        OnClick="btnUpdate_Click" />
+                </td>
+                <td>
+                    <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</asp:Content>

@@ -1,0 +1,831 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" 
+CodeFile="AdminMem_MemberInsertUpdate.aspx.cs" Inherits="AdminMem_MemberInsertUpdate" Title="Mem_Member Insert/Update By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .tableCss
+        {
+        	text-align: left;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class="tableCss">
+        <table>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMemberShipNo" runat="server" Text="MemberShipNo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMemberShipNo" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMemberShipNoDigit" runat="server" Text="MemberShipNoDigit: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMemberShipNoDigit" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMem_MemberTypeID" runat="server" Text="Mem_MemberTypeID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMem_MemberType" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblName" runat="server" Text="Name: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtName" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblDateOfBirth" runat="server" Text="DateOfBirth: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtDateOfBirth" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblAge" runat="server" Text="Age: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtAge" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_NationalityID" runat="server" Text="Comn_NationalityID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_Nationality" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPlaceOfBrith" runat="server" Text="PlaceOfBrith: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPlaceOfBrith" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMailingAddress1" runat="server" Text="MailingAddress1: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMailingAddress1" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMailingAddress2" runat="server" Text="MailingAddress2: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMailingAddress2" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMailingAddress3" runat="server" Text="MailingAddress3: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMailingAddress3" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMailingAddress" runat="server" Text="MailingAddress: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMailingAddress" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPermanentAddress" runat="server" Text="PermanentAddress: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPermanentAddress" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPermanentAddress1" runat="server" Text="PermanentAddress1: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPermanentAddress1" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPermanentAddress2" runat="server" Text="PermanentAddress2: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPermanentAddress2" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPermanentAddress3" runat="server" Text="PermanentAddress3: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPermanentAddress3" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPhoneOffice" runat="server" Text="PhoneOffice: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPhoneOffice" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPhoneResidence" runat="server" Text="PhoneResidence: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPhoneResidence" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMobile" runat="server" Text="Mobile: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMobile" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblEmail" runat="server" Text="Email: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtEmail" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblFax" runat="server" Text="Fax: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtFax" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblOtherContactInfo" runat="server" Text="OtherContactInfo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtOtherContactInfo" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_GenderID" runat="server" Text="Comn_GenderID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_Gender" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPresentIEBMembershipNo" runat="server" Text="PresentIEBMembershipNo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPresentIEBMembershipNo" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMem_SubDivisionID" runat="server" Text="Mem_SubDivisionID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMem_SubDivision" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblDeclarationDate" runat="server" Text="DeclarationDate: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtDeclarationDate" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMem_ApprovedCouncilMeetingID" runat="server" Text="Mem_ApprovedCouncilMeetingID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMem_ApprovedCouncilMeeting" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblScrollNo" runat="server" Text="ScrollNo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtScrollNo" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblReceiptDate" runat="server" Text="ReceiptDate: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtReceiptDate" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblCopiesOfCertificates" runat="server" Text="CopiesOfCertificates: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:CheckBox ID="cbCopiesOfCertificates" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblCopiesOfCertificatesComment" runat="server" Text="CopiesOfCertificatesComment: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtCopiesOfCertificatesComment" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblCopiesOfTranscripts" runat="server" Text="CopiesOfTranscripts: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:CheckBox ID="cbCopiesOfTranscripts" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblCopiesOfTranscriptsComment" runat="server" Text="CopiesOfTranscriptsComment: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtCopiesOfTranscriptsComment" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPhotoEnclosed" runat="server" Text="PhotoEnclosed: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:CheckBox ID="cbPhotoEnclosed" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblProfessionalRecordEnclosed" runat="server" Text="ProfessionalRecordEnclosed: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:CheckBox ID="cbProfessionalRecordEnclosed" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblProfessionalRecordEnclosedComment" runat="server" Text="ProfessionalRecordEnclosedComment: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtProfessionalRecordEnclosedComment" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblRecomendationOffice" runat="server" Text="RecomendationOffice: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:CheckBox ID="cbRecomendationOffice" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblRecomenDationCommentOffice" runat="server" Text="RecomenDationCommentOffice: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtRecomenDationCommentOffice" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblAgeMembershipSection" runat="server" Text="AgeMembershipSection: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtAgeMembershipSection" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblEducation" runat="server" Text="Education: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtEducation" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExprerience" runat="server" Text="Exprerience: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExprerience" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblRecomendationMembershipSec" runat="server" Text="RecomendationMembershipSec: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:CheckBox ID="cbRecomendationMembershipSec" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblRecomenDationCommentMembershipSec" runat="server" Text="RecomenDationCommentMembershipSec: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtRecomenDationCommentMembershipSec" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMembershipSectionEmployeeID" runat="server" Text="MembershipSectionEmployeeID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMembershipSectionEmployee" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_StatusID" runat="server" Text="Comn_StatusID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_Status" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMembershipCommiteeMemebershipNo" runat="server" Text="MembershipCommiteeMemebershipNo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtMembershipCommiteeMemebershipNo" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMembershipCommiteeMemebershipTypeID" runat="server" Text="MembershipCommiteeMemebershipTypeID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMembershipCommiteeMemebershipType" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPictureURL" runat="server" Text="PictureURL: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPictureURL" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblSignatureURL" runat="server" Text="SignatureURL: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtSignatureURL" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_UniversityID" runat="server" Text="Comn_UniversityID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_University" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_DepartmentID" runat="server" Text="Comn_DepartmentID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_Department" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPassingYear" runat="server" Text="PassingYear: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPassingYear" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_OfficeID" runat="server" Text="Comn_OfficeID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_Office" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_BloodGroup" runat="server" Text="Comn_BloodGroup: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtComn_BloodGroup" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblPassportNo" runat="server" Text="PassportNo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtPassportNo" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblNationalIDNo" runat="server" Text="NationalIDNo: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlNational" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblBirthRegistrationID" runat="server" Text="BirthRegistrationID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlBirthRegistration" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField1" runat="server" Text="ExtraField1: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField1" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField2" runat="server" Text="ExtraField2: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField2" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField3" runat="server" Text="ExtraField3: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField3" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField4" runat="server" Text="ExtraField4: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField4" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField5" runat="server" Text="ExtraField5: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField5" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField6" runat="server" Text="ExtraField6: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField6" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField7" runat="server" Text="ExtraField7: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField7" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField8" runat="server" Text="ExtraField8: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField8" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField9" runat="server" Text="ExtraField9: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField9" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField10" runat="server" Text="ExtraField10: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField10" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField11" runat="server" Text="ExtraField11: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField11" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField12" runat="server" Text="ExtraField12: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField12" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField13" runat="server" Text="ExtraField13: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField13" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField14" runat="server" Text="ExtraField14: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField14" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField15" runat="server" Text="ExtraField15: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField15" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField16" runat="server" Text="ExtraField16: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField16" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField17" runat="server" Text="ExtraField17: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField17" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField18" runat="server" Text="ExtraField18: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField18" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField19" runat="server" Text="ExtraField19: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField19" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblExtraField20" runat="server" Text="ExtraField20: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtExtraField20" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblAddedBy" runat="server" Text="AddedBy: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtAddedBy" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblModifiedBy" runat="server" Text="ModifiedBy: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtModifiedBy" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblModifiedDate" runat="server" Text="ModifiedDate: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtModifiedDate" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_RowStatusID" runat="server" Text="Comn_RowStatusID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_RowStatus" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update" 
+                        OnClick="btnUpdate_Click" />
+                </td>
+                <td>
+                    <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</asp:Content>

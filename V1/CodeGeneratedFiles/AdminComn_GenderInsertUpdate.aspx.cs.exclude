@@ -1,0 +1,68 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_GenderInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["comn_GenderID"] != null)
+            {
+                int comn_GenderID = Int32.Parse(Request.QueryString["comn_GenderID"]);
+                if (comn_GenderID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_GenderData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_Gender comn_Gender = new Comn_Gender();
+
+        comn_Gender.Comn_GenderName = txtComn_GenderName.Text;
+        int resutl = Comn_GenderManager.InsertComn_Gender(comn_Gender);
+        Response.Redirect("AdminComn_GenderDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_Gender comn_Gender = new Comn_Gender();
+        comn_Gender = Comn_GenderManager.GetComn_GenderByID(Int32.Parse(Request.QueryString["comn_GenderID"]));
+        Comn_Gender tempComn_Gender = new Comn_Gender();
+        tempComn_Gender.Comn_GenderID = comn_Gender.Comn_GenderID;
+
+        tempComn_Gender.Comn_GenderName = txtComn_GenderName.Text;
+        bool result = Comn_GenderManager.UpdateComn_Gender(tempComn_Gender);
+        Response.Redirect("AdminComn_GenderDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtComn_GenderName.Text = "";
+    }
+    private void showComn_GenderData()
+    {
+        Comn_Gender comn_Gender = new Comn_Gender();
+        comn_Gender = Comn_GenderManager.GetComn_GenderByID(Int32.Parse(Request.QueryString["comn_GenderID"]));
+
+        txtComn_GenderName.Text = comn_Gender.Comn_GenderName;
+    }
+}

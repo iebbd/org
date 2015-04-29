@@ -1,0 +1,167 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" 
+CodeFile="AdminMem_EducationalInfoInsertUpdate.aspx.cs" Inherits="AdminMem_EducationalInfoInsertUpdate" Title="Mem_EducationalInfo Insert/Update By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <style type="text/css">
+        .tableCss
+        {
+        	text-align: left;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <div class="tableCss">
+        <table>
+            <tr>
+                <td>
+                    <asp:Label ID="lblMem_MemberID" runat="server" Text="Mem_MemberID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlMem_Member" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_GegreeID" runat="server" Text="Comn_GegreeID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_Gegree" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblInstituteName" runat="server" Text="InstituteName: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtInstituteName" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_UniversityID" runat="server" Text="Comn_UniversityID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_University" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_DepartmentID" runat="server" Text="Comn_DepartmentID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_Department" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblDegreeTitle" runat="server" Text="DegreeTitle: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtDegreeTitle" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblYearOfPassing" runat="server" Text="YearOfPassing: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtYearOfPassing" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_ResultTypeID" runat="server" Text="Comn_ResultTypeID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_ResultType" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblResult" runat="server" Text="Result: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtResult" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblDetails" runat="server" Text="Details: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtDetails" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblAddedBy" runat="server" Text="AddedBy: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtAddedBy" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblModifiedBy" runat="server" Text="ModifiedBy: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtModifiedBy" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblModifiedDate" runat="server" Text="ModifiedDate: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtModifiedDate" runat="server" Text="">
+                    </asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="lblComn_RowStatusID" runat="server" Text="Comn_RowStatusID: ">
+                    </asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlComn_RowStatus" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update" 
+                        OnClick="btnUpdate_Click" />
+                </td>
+                <td>
+                    <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</asp:Content>

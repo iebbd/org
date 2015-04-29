@@ -1,0 +1,130 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_ProfessionalInfoInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadComn_Office();
+            loadComn_RowStatus();
+            if (Request.QueryString["mem_ProfessionalInfoID"] != null)
+            {
+                int mem_ProfessionalInfoID = Int32.Parse(Request.QueryString["mem_ProfessionalInfoID"]);
+                if (mem_ProfessionalInfoID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_ProfessionalInfoData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_ProfessionalInfo mem_ProfessionalInfo = new Mem_ProfessionalInfo();
+
+        mem_ProfessionalInfo.FromDate = txtFromDate.Text;
+        mem_ProfessionalInfo.ToDate = txtToDate.Text;
+        mem_ProfessionalInfo.Designation = txtDesignation.Text;
+        mem_ProfessionalInfo.Comn_OfficeID = Int32.Parse(ddlComn_Office.SelectedValue);
+        mem_ProfessionalInfo.Details = txtDetails.Text;
+        mem_ProfessionalInfo.AddedBy = Int32.Parse(txtAddedBy.Text);
+        mem_ProfessionalInfo.AddedDate = DateTime.Now;
+        mem_ProfessionalInfo.UpdatedBy = Int32.Parse(txtUpdatedBy.Text);
+        mem_ProfessionalInfo.UpdatedDate = txtUpdatedDate.Text;
+        mem_ProfessionalInfo.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        int resutl = Mem_ProfessionalInfoManager.InsertMem_ProfessionalInfo(mem_ProfessionalInfo);
+        Response.Redirect("AdminMem_ProfessionalInfoDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_ProfessionalInfo mem_ProfessionalInfo = new Mem_ProfessionalInfo();
+        mem_ProfessionalInfo = Mem_ProfessionalInfoManager.GetMem_ProfessionalInfoByID(Int32.Parse(Request.QueryString["mem_ProfessionalInfoID"]));
+        Mem_ProfessionalInfo tempMem_ProfessionalInfo = new Mem_ProfessionalInfo();
+        tempMem_ProfessionalInfo.Mem_ProfessionalInfoID = mem_ProfessionalInfo.Mem_ProfessionalInfoID;
+
+        tempMem_ProfessionalInfo.FromDate = txtFromDate.Text;
+        tempMem_ProfessionalInfo.ToDate = txtToDate.Text;
+        tempMem_ProfessionalInfo.Designation = txtDesignation.Text;
+        tempMem_ProfessionalInfo.Comn_OfficeID = Int32.Parse(ddlComn_Office.SelectedValue);
+        tempMem_ProfessionalInfo.Details = txtDetails.Text;
+        tempMem_ProfessionalInfo.AddedBy = Int32.Parse(txtAddedBy.Text);
+        tempMem_ProfessionalInfo.AddedDate = DateTime.Now;
+        tempMem_ProfessionalInfo.UpdatedBy = Int32.Parse(txtUpdatedBy.Text);
+        tempMem_ProfessionalInfo.UpdatedDate = txtUpdatedDate.Text;
+        tempMem_ProfessionalInfo.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        bool result = Mem_ProfessionalInfoManager.UpdateMem_ProfessionalInfo(tempMem_ProfessionalInfo);
+        Response.Redirect("AdminMem_ProfessionalInfoDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtFromDate.Text = "";
+        txtToDate.Text = "";
+        txtDesignation.Text = "";
+        ddlComn_Office.SelectedIndex = 0;
+        txtDetails.Text = "";
+        txtAddedBy.Text = "";
+        txtUpdatedBy.Text = "";
+        txtUpdatedDate.Text = "";
+        ddlComn_RowStatus.SelectedIndex = 0;
+    }
+    private void showMem_ProfessionalInfoData()
+    {
+        Mem_ProfessionalInfo mem_ProfessionalInfo = new Mem_ProfessionalInfo();
+        mem_ProfessionalInfo = Mem_ProfessionalInfoManager.GetMem_ProfessionalInfoByID(Int32.Parse(Request.QueryString["mem_ProfessionalInfoID"]));
+
+        txtFromDate.Text = mem_ProfessionalInfo.FromDate;
+        txtToDate.Text = mem_ProfessionalInfo.ToDate;
+        txtDesignation.Text = mem_ProfessionalInfo.Designation;
+        ddlComn_Office.SelectedValue = mem_ProfessionalInfo.Comn_OfficeID.ToString();
+        txtDetails.Text = mem_ProfessionalInfo.Details;
+        txtAddedBy.Text = mem_ProfessionalInfo.AddedBy.ToString();
+        txtUpdatedBy.Text = mem_ProfessionalInfo.UpdatedBy.ToString();
+        txtUpdatedDate.Text = mem_ProfessionalInfo.UpdatedDate;
+        ddlComn_RowStatus.SelectedValue = mem_ProfessionalInfo.Comn_RowStatusID.ToString();
+    }
+    private void loadComn_Office()
+    {
+        ListItem li = new ListItem("Select Comn_Office...", "0");
+        ddlComn_Office.Items.Add(li);
+
+        List<Comn_Office> comn_Offices = new List<Comn_Office>();
+        comn_Offices = Comn_OfficeManager.GetAllComn_Offices();
+        foreach (Comn_Office comn_Office in comn_Offices)
+        {
+            ListItem item = new ListItem(comn_Office.Comn_OfficeName.ToString(), comn_Office.Comn_OfficeID.ToString());
+            ddlComn_Office.Items.Add(item);
+        }
+    }
+    private void loadComn_RowStatus()
+    {
+        ListItem li = new ListItem("Select Comn_RowStatus...", "0");
+        ddlComn_RowStatus.Items.Add(li);
+
+        List<Comn_RowStatus> comn_RowStatuss = new List<Comn_RowStatus>();
+        comn_RowStatuss = Comn_RowStatusManager.GetAllComn_RowStatuss();
+        foreach (Comn_RowStatus comn_RowStatus in comn_RowStatuss)
+        {
+            ListItem item = new ListItem(comn_RowStatus.Comn_RowStatusName.ToString(), comn_RowStatus.Comn_RowStatusID.ToString());
+            ddlComn_RowStatus.Items.Add(item);
+        }
+    }
+}

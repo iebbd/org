@@ -1,0 +1,521 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_MemberInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadMem_MemberType();
+            loadComn_Nationality();
+            loadComn_Gender();
+            loadMem_SubDivision();
+            loadMem_ApprovedCouncilMeeting();
+            loadComn_Status();
+            loadComn_University();
+            //loadComn_Department();
+            loadComn_Office();
+            loadComn_RowStatus();
+            if (Request.QueryString["mem_MemberID"] != null)
+            {
+                int mem_MemberID = Int32.Parse(Request.QueryString["mem_MemberID"]);
+                if (mem_MemberID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_MemberData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_Member mem_Member = new Mem_Member();
+
+        mem_Member.MemberShipNo = txtMemberShipNo.Text;
+        mem_Member.MemberShipNoDigit = Int32.Parse(txtMemberShipNoDigit.Text);
+        mem_Member.Mem_MemberTypeID = Int32.Parse(ddlMem_MemberType.SelectedValue);
+        mem_Member.Name = txtName.Text;
+        mem_Member.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text);
+        mem_Member.Age = Int32.Parse(txtAge.Text);
+        mem_Member.Comn_NationalityID = Int32.Parse(ddlComn_Nationality.SelectedValue);
+        mem_Member.PlaceOfBrith = txtPlaceOfBrith.Text;
+        mem_Member.MailingAddress1 = txtMailingAddress1.Text;
+        mem_Member.MailingAddress2 = txtMailingAddress2.Text;
+        mem_Member.MailingAddress3 = txtMailingAddress3.Text;
+        mem_Member.MailingAddress = txtMailingAddress.Text;
+        mem_Member.PermanentAddress = txtPermanentAddress.Text;
+        mem_Member.PermanentAddress1 = txtPermanentAddress1.Text;
+        mem_Member.PermanentAddress2 = txtPermanentAddress2.Text;
+        mem_Member.PermanentAddress3 = txtPermanentAddress3.Text;
+        mem_Member.PhoneOffice = txtPhoneOffice.Text;
+        mem_Member.PhoneResidence = txtPhoneResidence.Text;
+        mem_Member.Mobile = txtMobile.Text;
+        mem_Member.Email = txtEmail.Text;
+        mem_Member.Fax = txtFax.Text;
+        mem_Member.OtherContactInfo = txtOtherContactInfo.Text;
+        mem_Member.Comn_GenderID = Int32.Parse(ddlComn_Gender.SelectedValue);
+        mem_Member.PresentIEBMembershipNo = txtPresentIEBMembershipNo.Text;
+        mem_Member.Mem_SubDivisionID = Int32.Parse(ddlMem_SubDivision.SelectedValue);
+        mem_Member.DeclarationDate = DateTime.Parse(txtDeclarationDate.Text);
+        mem_Member.Mem_ApprovedCouncilMeetingID = Int32.Parse(ddlMem_ApprovedCouncilMeeting.SelectedValue);
+        mem_Member.ScrollNo = Int32.Parse(txtScrollNo.Text);
+        mem_Member.ReceiptDate = DateTime.Parse(txtReceiptDate.Text);
+        mem_Member.CopiesOfCertificates = cbCopiesOfCertificates.Checked;
+        mem_Member.CopiesOfCertificatesComment = txtCopiesOfCertificatesComment.Text;
+        mem_Member.CopiesOfTranscripts = cbCopiesOfTranscripts.Checked;
+        mem_Member.CopiesOfTranscriptsComment = txtCopiesOfTranscriptsComment.Text;
+        mem_Member.PhotoEnclosed = cbPhotoEnclosed.Checked;
+        mem_Member.ProfessionalRecordEnclosed = cbProfessionalRecordEnclosed.Checked;
+        mem_Member.ProfessionalRecordEnclosedComment = txtProfessionalRecordEnclosedComment.Text;
+        mem_Member.RecomendationOffice = cbRecomendationOffice.Checked;
+        mem_Member.RecomenDationCommentOffice = txtRecomenDationCommentOffice.Text;
+        mem_Member.AgeMembershipSection = txtAgeMembershipSection.Text;
+        mem_Member.Education = txtEducation.Text;
+        mem_Member.Exprerience = txtExprerience.Text;
+        mem_Member.RecomendationMembershipSec = cbRecomendationMembershipSec.Checked;
+        mem_Member.RecomenDationCommentMembershipSec = txtRecomenDationCommentMembershipSec.Text;
+        mem_Member.MembershipSectionEmployeeID = Int32.Parse(ddlMembershipSectionEmployee.SelectedValue);
+        mem_Member.Comn_StatusID = Int32.Parse(ddlComn_Status.SelectedValue);
+        mem_Member.MembershipCommiteeMemebershipNo = Int32.Parse(txtMembershipCommiteeMemebershipNo.Text);
+        mem_Member.MembershipCommiteeMemebershipTypeID = Int32.Parse(ddlMembershipCommiteeMemebershipType.SelectedValue);
+        mem_Member.PictureURL = txtPictureURL.Text;
+        mem_Member.SignatureURL = txtSignatureURL.Text;
+        mem_Member.Comn_UniversityID = Int32.Parse(ddlComn_University.SelectedValue);
+        mem_Member.Comn_DepartmentID = Int32.Parse(ddlComn_Department.SelectedValue);
+        mem_Member.PassingYear = Int32.Parse(txtPassingYear.Text);
+        mem_Member.Comn_OfficeID = Int32.Parse(ddlComn_Office.SelectedValue);
+        mem_Member.Comn_BloodGroup = ' ';
+        mem_Member.PassportNo = txtPassportNo.Text;
+        mem_Member.NationalIDNo = "";
+        mem_Member.BirthRegistrationID ="";
+        mem_Member.ExtraField1 = txtExtraField1.Text;
+        mem_Member.ExtraField2 = txtExtraField2.Text;
+        mem_Member.ExtraField3 = txtExtraField3.Text;
+        mem_Member.ExtraField4 = txtExtraField4.Text;
+        mem_Member.ExtraField5 = txtExtraField5.Text;
+        mem_Member.ExtraField6 = txtExtraField6.Text;
+        mem_Member.ExtraField7 = txtExtraField7.Text;
+        mem_Member.ExtraField8 = txtExtraField8.Text;
+        mem_Member.ExtraField9 = txtExtraField9.Text;
+        mem_Member.ExtraField10 = txtExtraField10.Text;
+        mem_Member.ExtraField11 = txtExtraField11.Text;
+        mem_Member.ExtraField12 = txtExtraField12.Text;
+        mem_Member.ExtraField13 = txtExtraField13.Text;
+        mem_Member.ExtraField14 = txtExtraField14.Text;
+        mem_Member.ExtraField15 = txtExtraField15.Text;
+        mem_Member.ExtraField16 = txtExtraField16.Text;
+        mem_Member.ExtraField17 = txtExtraField17.Text;
+        mem_Member.ExtraField18 = txtExtraField18.Text;
+        mem_Member.ExtraField19 = txtExtraField19.Text;
+        mem_Member.ExtraField20 = txtExtraField20.Text;
+        mem_Member.AddedBy = Int32.Parse(txtAddedBy.Text);
+        mem_Member.AddedDate = DateTime.Now;
+        mem_Member.ModifiedBy = Int32.Parse(txtModifiedBy.Text);
+        mem_Member.ModifiedDate = DateTime.Parse(txtModifiedDate.Text);
+        mem_Member.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        int resutl = Mem_MemberManager.InsertMem_Member(mem_Member);
+        Response.Redirect("AdminMem_MemberDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_Member mem_Member = new Mem_Member();
+        mem_Member = Mem_MemberManager.GetMem_MemberByID(Int32.Parse(Request.QueryString["mem_MemberID"]));
+        Mem_Member tempMem_Member = new Mem_Member();
+        tempMem_Member.Mem_MemberID = mem_Member.Mem_MemberID;
+
+        tempMem_Member.MemberShipNo = txtMemberShipNo.Text;
+        tempMem_Member.MemberShipNoDigit = Int32.Parse(txtMemberShipNoDigit.Text);
+        tempMem_Member.Mem_MemberTypeID = Int32.Parse(ddlMem_MemberType.SelectedValue);
+        tempMem_Member.Name = txtName.Text;
+        tempMem_Member.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text);
+        tempMem_Member.Age = Int32.Parse(txtAge.Text);
+        tempMem_Member.Comn_NationalityID = Int32.Parse(ddlComn_Nationality.SelectedValue);
+        tempMem_Member.PlaceOfBrith = txtPlaceOfBrith.Text;
+        tempMem_Member.MailingAddress1 = txtMailingAddress1.Text;
+        tempMem_Member.MailingAddress2 = txtMailingAddress2.Text;
+        tempMem_Member.MailingAddress3 = txtMailingAddress3.Text;
+        tempMem_Member.MailingAddress = txtMailingAddress.Text;
+        tempMem_Member.PermanentAddress = txtPermanentAddress.Text;
+        tempMem_Member.PermanentAddress1 = txtPermanentAddress1.Text;
+        tempMem_Member.PermanentAddress2 = txtPermanentAddress2.Text;
+        tempMem_Member.PermanentAddress3 = txtPermanentAddress3.Text;
+        tempMem_Member.PhoneOffice = txtPhoneOffice.Text;
+        tempMem_Member.PhoneResidence = txtPhoneResidence.Text;
+        tempMem_Member.Mobile = txtMobile.Text;
+        tempMem_Member.Email = txtEmail.Text;
+        tempMem_Member.Fax = txtFax.Text;
+        tempMem_Member.OtherContactInfo = txtOtherContactInfo.Text;
+        tempMem_Member.Comn_GenderID = Int32.Parse(ddlComn_Gender.SelectedValue);
+        tempMem_Member.PresentIEBMembershipNo = txtPresentIEBMembershipNo.Text;
+        tempMem_Member.Mem_SubDivisionID = Int32.Parse(ddlMem_SubDivision.SelectedValue);
+        tempMem_Member.DeclarationDate = DateTime.Parse(txtDeclarationDate.Text);
+        tempMem_Member.Mem_ApprovedCouncilMeetingID = Int32.Parse(ddlMem_ApprovedCouncilMeeting.SelectedValue);
+        tempMem_Member.ScrollNo = Int32.Parse(txtScrollNo.Text);
+        tempMem_Member.ReceiptDate = DateTime.Parse(txtReceiptDate.Text);
+        tempMem_Member.CopiesOfCertificates = cbCopiesOfCertificates.Checked;
+        tempMem_Member.CopiesOfCertificatesComment = txtCopiesOfCertificatesComment.Text;
+        tempMem_Member.CopiesOfTranscripts = cbCopiesOfTranscripts.Checked;
+        tempMem_Member.CopiesOfTranscriptsComment = txtCopiesOfTranscriptsComment.Text;
+        tempMem_Member.PhotoEnclosed = cbPhotoEnclosed.Checked;
+        tempMem_Member.ProfessionalRecordEnclosed = cbProfessionalRecordEnclosed.Checked;
+        tempMem_Member.ProfessionalRecordEnclosedComment = txtProfessionalRecordEnclosedComment.Text;
+        tempMem_Member.RecomendationOffice = cbRecomendationOffice.Checked;
+        tempMem_Member.RecomenDationCommentOffice = txtRecomenDationCommentOffice.Text;
+        tempMem_Member.AgeMembershipSection = txtAgeMembershipSection.Text;
+        tempMem_Member.Education = txtEducation.Text;
+        tempMem_Member.Exprerience = txtExprerience.Text;
+        tempMem_Member.RecomendationMembershipSec = cbRecomendationMembershipSec.Checked;
+        tempMem_Member.RecomenDationCommentMembershipSec = txtRecomenDationCommentMembershipSec.Text;
+        tempMem_Member.MembershipSectionEmployeeID = Int32.Parse(ddlMembershipSectionEmployee.SelectedValue);
+        tempMem_Member.Comn_StatusID = Int32.Parse(ddlComn_Status.SelectedValue);
+        tempMem_Member.MembershipCommiteeMemebershipNo = Int32.Parse(txtMembershipCommiteeMemebershipNo.Text);
+        tempMem_Member.MembershipCommiteeMemebershipTypeID = Int32.Parse(ddlMembershipCommiteeMemebershipType.SelectedValue);
+        tempMem_Member.PictureURL = txtPictureURL.Text;
+        tempMem_Member.SignatureURL = txtSignatureURL.Text;
+        tempMem_Member.Comn_UniversityID = Int32.Parse(ddlComn_University.SelectedValue);
+        tempMem_Member.Comn_DepartmentID = Int32.Parse(ddlComn_Department.SelectedValue);
+        tempMem_Member.PassingYear = Int32.Parse(txtPassingYear.Text);
+        tempMem_Member.Comn_OfficeID = Int32.Parse(ddlComn_Office.SelectedValue);
+        tempMem_Member.Comn_BloodGroup = ' ';
+        tempMem_Member.PassportNo = txtPassportNo.Text;
+        tempMem_Member.NationalIDNo = "";
+        tempMem_Member.BirthRegistrationID = "";
+        tempMem_Member.ExtraField1 = txtExtraField1.Text;
+        tempMem_Member.ExtraField2 = txtExtraField2.Text;
+        tempMem_Member.ExtraField3 = txtExtraField3.Text;
+        tempMem_Member.ExtraField4 = txtExtraField4.Text;
+        tempMem_Member.ExtraField5 = txtExtraField5.Text;
+        tempMem_Member.ExtraField6 = txtExtraField6.Text;
+        tempMem_Member.ExtraField7 = txtExtraField7.Text;
+        tempMem_Member.ExtraField8 = txtExtraField8.Text;
+        tempMem_Member.ExtraField9 = txtExtraField9.Text;
+        tempMem_Member.ExtraField10 = txtExtraField10.Text;
+        tempMem_Member.ExtraField11 = txtExtraField11.Text;
+        tempMem_Member.ExtraField12 = txtExtraField12.Text;
+        tempMem_Member.ExtraField13 = txtExtraField13.Text;
+        tempMem_Member.ExtraField14 = txtExtraField14.Text;
+        tempMem_Member.ExtraField15 = txtExtraField15.Text;
+        tempMem_Member.ExtraField16 = txtExtraField16.Text;
+        tempMem_Member.ExtraField17 = txtExtraField17.Text;
+        tempMem_Member.ExtraField18 = txtExtraField18.Text;
+        tempMem_Member.ExtraField19 = txtExtraField19.Text;
+        tempMem_Member.ExtraField20 = txtExtraField20.Text;
+        tempMem_Member.AddedBy = Int32.Parse(txtAddedBy.Text);
+        tempMem_Member.AddedDate = DateTime.Now;
+        tempMem_Member.ModifiedBy = Int32.Parse(txtModifiedBy.Text);
+        tempMem_Member.ModifiedDate = DateTime.Parse(txtModifiedDate.Text);
+        tempMem_Member.Comn_RowStatusID = Int32.Parse(ddlComn_RowStatus.SelectedValue);
+        bool result = Mem_MemberManager.UpdateMem_Member(tempMem_Member);
+        Response.Redirect("AdminMem_MemberDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtMemberShipNo.Text = "";
+        txtMemberShipNoDigit.Text = "";
+        ddlMem_MemberType.SelectedIndex = 0;
+        txtName.Text = "";
+        txtDateOfBirth.Text = "";
+        txtAge.Text = "";
+        ddlComn_Nationality.SelectedIndex = 0;
+        txtPlaceOfBrith.Text = "";
+        txtMailingAddress1.Text = "";
+        txtMailingAddress2.Text = "";
+        txtMailingAddress3.Text = "";
+        txtMailingAddress.Text = "";
+        txtPermanentAddress.Text = "";
+        txtPermanentAddress1.Text = "";
+        txtPermanentAddress2.Text = "";
+        txtPermanentAddress3.Text = "";
+        txtPhoneOffice.Text = "";
+        txtPhoneResidence.Text = "";
+        txtMobile.Text = "";
+        txtEmail.Text = "";
+        txtFax.Text = "";
+        txtOtherContactInfo.Text = "";
+        ddlComn_Gender.SelectedIndex = 0;
+        txtPresentIEBMembershipNo.Text = "";
+        ddlMem_SubDivision.SelectedIndex = 0;
+        txtDeclarationDate.Text = "";
+        ddlMem_ApprovedCouncilMeeting.SelectedIndex = 0;
+        txtScrollNo.Text = "";
+        txtReceiptDate.Text = "";
+        cbCopiesOfCertificates.Checked = false;
+        txtCopiesOfCertificatesComment.Text = "";
+        cbCopiesOfTranscripts.Checked = false;
+        txtCopiesOfTranscriptsComment.Text = "";
+        cbPhotoEnclosed.Checked = false;
+        cbProfessionalRecordEnclosed.Checked = false;
+        txtProfessionalRecordEnclosedComment.Text = "";
+        cbRecomendationOffice.Checked = false;
+        txtRecomenDationCommentOffice.Text = "";
+        txtAgeMembershipSection.Text = "";
+        txtEducation.Text = "";
+        txtExprerience.Text = "";
+        cbRecomendationMembershipSec.Checked = false;
+        txtRecomenDationCommentMembershipSec.Text = "";
+        ddlMembershipSectionEmployee.SelectedIndex = 0;
+        ddlComn_Status.SelectedIndex = 0;
+        txtMembershipCommiteeMemebershipNo.Text = "";
+        ddlMembershipCommiteeMemebershipType.SelectedIndex = 0;
+        txtPictureURL.Text = "";
+        txtSignatureURL.Text = "";
+        ddlComn_University.SelectedIndex = 0;
+        ddlComn_Department.SelectedIndex = 0;
+        txtPassingYear.Text = "";
+        ddlComn_Office.SelectedIndex = 0;
+        txtComn_BloodGroup.Text = "";
+        txtPassportNo.Text = "";
+        ddlNational.SelectedIndex = 0;
+        ddlBirthRegistration.SelectedIndex = 0;
+        txtExtraField1.Text = "";
+        txtExtraField2.Text = "";
+        txtExtraField3.Text = "";
+        txtExtraField4.Text = "";
+        txtExtraField5.Text = "";
+        txtExtraField6.Text = "";
+        txtExtraField7.Text = "";
+        txtExtraField8.Text = "";
+        txtExtraField9.Text = "";
+        txtExtraField10.Text = "";
+        txtExtraField11.Text = "";
+        txtExtraField12.Text = "";
+        txtExtraField13.Text = "";
+        txtExtraField14.Text = "";
+        txtExtraField15.Text = "";
+        txtExtraField16.Text = "";
+        txtExtraField17.Text = "";
+        txtExtraField18.Text = "";
+        txtExtraField19.Text = "";
+        txtExtraField20.Text = "";
+        txtAddedBy.Text = "";
+        txtModifiedBy.Text = "";
+        txtModifiedDate.Text = "";
+        ddlComn_RowStatus.SelectedIndex = 0;
+    }
+    private void showMem_MemberData()
+    {
+        Mem_Member mem_Member = new Mem_Member();
+        mem_Member = Mem_MemberManager.GetMem_MemberByID(Int32.Parse(Request.QueryString["mem_MemberID"]));
+
+        txtMemberShipNo.Text = mem_Member.MemberShipNo;
+        txtMemberShipNoDigit.Text = mem_Member.MemberShipNoDigit.ToString();
+        ddlMem_MemberType.SelectedValue = mem_Member.Mem_MemberTypeID.ToString();
+        txtName.Text = mem_Member.Name;
+        txtDateOfBirth.Text = mem_Member.DateOfBirth.ToString("dd MMM yyyy");
+        txtAge.Text = mem_Member.Age.ToString();
+        ddlComn_Nationality.SelectedValue = mem_Member.Comn_NationalityID.ToString();
+        txtPlaceOfBrith.Text = mem_Member.PlaceOfBrith;
+        txtMailingAddress1.Text = mem_Member.MailingAddress1;
+        txtMailingAddress2.Text = mem_Member.MailingAddress2;
+        txtMailingAddress3.Text = mem_Member.MailingAddress3;
+        txtMailingAddress.Text = mem_Member.MailingAddress;
+        txtPermanentAddress.Text = mem_Member.PermanentAddress;
+        txtPermanentAddress1.Text = mem_Member.PermanentAddress1;
+        txtPermanentAddress2.Text = mem_Member.PermanentAddress2;
+        txtPermanentAddress3.Text = mem_Member.PermanentAddress3;
+        txtPhoneOffice.Text = mem_Member.PhoneOffice;
+        txtPhoneResidence.Text = mem_Member.PhoneResidence;
+        txtMobile.Text = mem_Member.Mobile;
+        txtEmail.Text = mem_Member.Email;
+        txtFax.Text = mem_Member.Fax;
+        txtOtherContactInfo.Text = mem_Member.OtherContactInfo;
+        ddlComn_Gender.SelectedValue = mem_Member.Comn_GenderID.ToString();
+        txtPresentIEBMembershipNo.Text = mem_Member.PresentIEBMembershipNo;
+        ddlMem_SubDivision.SelectedValue = mem_Member.Mem_SubDivisionID.ToString();
+        txtDeclarationDate.Text = mem_Member.DeclarationDate.ToString("dd MMM yyyy");
+        ddlMem_ApprovedCouncilMeeting.SelectedValue = mem_Member.Mem_ApprovedCouncilMeetingID.ToString();
+        txtScrollNo.Text = mem_Member.ScrollNo.ToString();
+        txtReceiptDate.Text = mem_Member.ReceiptDate.ToString("dd MMM yyyy");
+        cbCopiesOfCertificates.Checked = false;
+        txtCopiesOfCertificatesComment.Text = mem_Member.CopiesOfCertificatesComment;
+        cbCopiesOfTranscripts.Checked = mem_Member.CopiesOfTranscripts;
+        txtCopiesOfTranscriptsComment.Text = mem_Member.CopiesOfTranscriptsComment;
+        cbPhotoEnclosed.Checked = false;
+        cbProfessionalRecordEnclosed.Checked = false;
+        txtProfessionalRecordEnclosedComment.Text = mem_Member.ProfessionalRecordEnclosedComment;
+        cbRecomendationOffice.Checked = false;
+        txtRecomenDationCommentOffice.Text = mem_Member.RecomenDationCommentOffice;
+        txtAgeMembershipSection.Text = mem_Member.AgeMembershipSection;
+        txtEducation.Text = mem_Member.Education;
+        txtExprerience.Text = mem_Member.Exprerience;
+        cbRecomendationMembershipSec.Checked = false;
+        txtRecomenDationCommentMembershipSec.Text = mem_Member.RecomenDationCommentMembershipSec;
+        ddlMembershipSectionEmployee.SelectedValue = mem_Member.MembershipSectionEmployeeID.ToString();
+        ddlComn_Status.SelectedValue = mem_Member.Comn_StatusID.ToString();
+        txtMembershipCommiteeMemebershipNo.Text = mem_Member.MembershipCommiteeMemebershipNo.ToString();
+        ddlMembershipCommiteeMemebershipType.SelectedValue = mem_Member.MembershipCommiteeMemebershipTypeID.ToString();
+        txtPictureURL.Text = mem_Member.PictureURL;
+        txtSignatureURL.Text = mem_Member.SignatureURL;
+        ddlComn_University.SelectedValue = mem_Member.Comn_UniversityID.ToString();
+        ddlComn_Department.SelectedValue = mem_Member.Comn_DepartmentID.ToString();
+        txtPassingYear.Text = mem_Member.PassingYear.ToString();
+        ddlComn_Office.SelectedValue = mem_Member.Comn_OfficeID.ToString();
+        txtComn_BloodGroup.Text = mem_Member.Comn_BloodGroup.ToString();
+        txtPassportNo.Text = mem_Member.PassportNo;
+        ddlNational.SelectedValue = mem_Member.NationalIDNo.ToString();
+        ddlBirthRegistration.SelectedValue = mem_Member.BirthRegistrationID.ToString();
+        txtExtraField1.Text = mem_Member.ExtraField1;
+        txtExtraField2.Text = mem_Member.ExtraField2;
+        txtExtraField3.Text = mem_Member.ExtraField3;
+        txtExtraField4.Text = mem_Member.ExtraField4;
+        txtExtraField5.Text = mem_Member.ExtraField5;
+        txtExtraField6.Text = mem_Member.ExtraField6;
+        txtExtraField7.Text = mem_Member.ExtraField7;
+        txtExtraField8.Text = mem_Member.ExtraField8;
+        txtExtraField9.Text = mem_Member.ExtraField9;
+        txtExtraField10.Text = mem_Member.ExtraField10;
+        txtExtraField11.Text = mem_Member.ExtraField11;
+        txtExtraField12.Text = mem_Member.ExtraField12;
+        txtExtraField13.Text = mem_Member.ExtraField13;
+        txtExtraField14.Text = mem_Member.ExtraField14;
+        txtExtraField15.Text = mem_Member.ExtraField15;
+        txtExtraField16.Text = mem_Member.ExtraField16;
+        txtExtraField17.Text = mem_Member.ExtraField17;
+        txtExtraField18.Text = mem_Member.ExtraField18;
+        txtExtraField19.Text = mem_Member.ExtraField19;
+        txtExtraField20.Text = mem_Member.ExtraField20;
+        txtAddedBy.Text = mem_Member.AddedBy.ToString();
+        txtModifiedBy.Text = mem_Member.ModifiedBy.ToString();
+        txtModifiedDate.Text = mem_Member.ModifiedDate.ToString("dd MMM yyyy");
+        ddlComn_RowStatus.SelectedValue = mem_Member.Comn_RowStatusID.ToString();
+    }
+    private void loadMem_MemberType()
+    {
+        ListItem li = new ListItem("Select Mem_MemberType...", "0");
+        ddlMem_MemberType.Items.Add(li);
+
+        List<Mem_MemberType> mem_MemberTypes = new List<Mem_MemberType>();
+        mem_MemberTypes = Mem_MemberTypeManager.GetAllMem_MemberTypes();
+        foreach (Mem_MemberType mem_MemberType in mem_MemberTypes)
+        {
+            ListItem item = new ListItem(mem_MemberType.Mem_MemberTypeName.ToString(), mem_MemberType.Mem_MemberTypeID.ToString());
+            ddlMem_MemberType.Items.Add(item);
+        }
+    }
+    private void loadComn_Nationality()
+    {
+        ListItem li = new ListItem("Select Comn_Nationality...", "0");
+        ddlComn_Nationality.Items.Add(li);
+
+        List<Comn_Nationality> comn_Nationalities = new List<Comn_Nationality>();
+        comn_Nationalities = Comn_NationalityManager.GetAllComn_Nationalities();
+        foreach (Comn_Nationality comn_Nationality in comn_Nationalities)
+        {
+            ListItem item = new ListItem(comn_Nationality.Comn_NationalityName.ToString(), comn_Nationality.Comn_NationalityID.ToString());
+            ddlComn_Nationality.Items.Add(item);
+        }
+    }
+    private void loadComn_Gender()
+    {
+        ListItem li = new ListItem("Select Comn_Gender...", "0");
+        ddlComn_Gender.Items.Add(li);
+
+        List<Comn_Gender> comn_Genders = new List<Comn_Gender>();
+        comn_Genders = Comn_GenderManager.GetAllComn_Genders();
+        foreach (Comn_Gender comn_Gender in comn_Genders)
+        {
+            ListItem item = new ListItem(comn_Gender.Comn_GenderName.ToString(), comn_Gender.Comn_GenderID.ToString());
+            ddlComn_Gender.Items.Add(item);
+        }
+    }
+    private void loadMem_SubDivision()
+    {
+        ListItem li = new ListItem("Select Mem_SubDivision...", "0");
+        ddlMem_SubDivision.Items.Add(li);
+
+        List<Mem_SubDivision> mem_SubDivisions = new List<Mem_SubDivision>();
+        mem_SubDivisions = Mem_SubDivisionManager.GetAllMem_SubDivisions();
+        foreach (Mem_SubDivision mem_SubDivision in mem_SubDivisions)
+        {
+            ListItem item = new ListItem(mem_SubDivision.Mem_SubDivisionName.ToString(), mem_SubDivision.Mem_SubDivisionID.ToString());
+            ddlMem_SubDivision.Items.Add(item);
+        }
+    }
+    private void loadMem_ApprovedCouncilMeeting()
+    {
+        ListItem li = new ListItem("Select Mem_ApprovedCouncilMeeting...", "0");
+        ddlMem_ApprovedCouncilMeeting.Items.Add(li);
+
+        List<Mem_ApprovedCouncilMeeting> mem_ApprovedCouncilMeetings = new List<Mem_ApprovedCouncilMeeting>();
+        mem_ApprovedCouncilMeetings = Mem_ApprovedCouncilMeetingManager.GetAllMem_ApprovedCouncilMeetings();
+        foreach (Mem_ApprovedCouncilMeeting mem_ApprovedCouncilMeeting in mem_ApprovedCouncilMeetings)
+        {
+            ListItem item = new ListItem(mem_ApprovedCouncilMeeting.Mem_ApprovedCouncilMeetingName.ToString(), mem_ApprovedCouncilMeeting.Mem_ApprovedCouncilMeetingID.ToString());
+            ddlMem_ApprovedCouncilMeeting.Items.Add(item);
+        }
+    }
+    
+    private void loadComn_Status()
+    {
+        ListItem li = new ListItem("Select Comn_Status...", "0");
+        ddlComn_Status.Items.Add(li);
+
+        List<Comn_Status> comn_Statuss = new List<Comn_Status>();
+        comn_Statuss = Comn_StatusManager.GetAllComn_Statuss();
+        foreach (Comn_Status comn_Status in comn_Statuss)
+        {
+            ListItem item = new ListItem(comn_Status.Comn_StatusName.ToString(), comn_Status.Comn_StatusID.ToString());
+            ddlComn_Status.Items.Add(item);
+        }
+    }
+    
+    private void loadComn_University()
+    {
+        ListItem li = new ListItem("Select Comn_University...", "0");
+        ddlComn_University.Items.Add(li);
+
+        List<Comn_University> comn_Universities = new List<Comn_University>();
+        comn_Universities = Comn_UniversityManager.GetAllComn_Universities();
+        foreach (Comn_University comn_University in comn_Universities)
+        {
+            ListItem item = new ListItem(comn_University.Comn_UniversityName.ToString(), comn_University.Comn_UniversityID.ToString());
+            ddlComn_University.Items.Add(item);
+        }
+    }
+    
+    private void loadComn_Office()
+    {
+        ListItem li = new ListItem("Select Comn_Office...", "0");
+        ddlComn_Office.Items.Add(li);
+
+        List<Comn_Office> comn_Offices = new List<Comn_Office>();
+        comn_Offices = Comn_OfficeManager.GetAllComn_Offices();
+        foreach (Comn_Office comn_Office in comn_Offices)
+        {
+            ListItem item = new ListItem(comn_Office.Comn_OfficeName.ToString(), comn_Office.Comn_OfficeID.ToString());
+            ddlComn_Office.Items.Add(item);
+        }
+    }
+    
+    private void loadComn_RowStatus()
+    {
+        ListItem li = new ListItem("Select Comn_RowStatus...", "0");
+        ddlComn_RowStatus.Items.Add(li);
+
+        List<Comn_RowStatus> comn_RowStatuss = new List<Comn_RowStatus>();
+        comn_RowStatuss = Comn_RowStatusManager.GetAllComn_RowStatuss();
+        foreach (Comn_RowStatus comn_RowStatus in comn_RowStatuss)
+        {
+            ListItem item = new ListItem(comn_RowStatus.Comn_RowStatusName.ToString(), comn_RowStatus.Comn_RowStatusID.ToString());
+            ddlComn_RowStatus.Items.Add(item);
+        }
+    }
+}

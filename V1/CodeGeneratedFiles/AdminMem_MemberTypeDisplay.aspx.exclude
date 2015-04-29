@@ -1,0 +1,84 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true"
+    CodeFile="AdminMem_MemberTypeDisplay.aspx.cs" Inherits="AdminMem_MemberTypeDisplay" Title="Display Mem_MemberType By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
+        .gridCss
+        {
+            width: 100%;
+            padding: 20px 10px 10px 10px;
+            text-align: center;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div>
+        <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+        <asp:GridView ID="gvMem_MemberType" runat="server" AutoGenerateColumns="false" CssClass="gridCss">
+            <Columns>
+                <asp:TemplateField HeaderText="Select">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbSelect" runat="server" CommandArgument='<%#Eval("Mem_MemberTypeID") %>' OnClick="lbSelect_Click">
+                            Select
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mem_MemberTypeName">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMem_MemberTypeName" runat="server" Text='<%#Eval("Mem_MemberTypeName") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mem_MemberCategoryID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMem_MemberCategoryID" runat="server" Text='<%#Eval("Mem_MemberCategoryID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Details">
+                    <ItemTemplate>
+                        <asp:Label ID="lblDetails" runat="server" Text='<%#Eval("Details") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="EntranceFee">
+                    <ItemTemplate>
+                        <asp:Label ID="lblEntranceFee" runat="server" Text='<%#Eval("EntranceFee") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="AnnaralSubscriptionFee">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAnnaralSubscriptionFee" runat="server" Text='<%#Eval("AnnaralSubscriptionFee") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="DiplomaFee">
+                    <ItemTemplate>
+                        <asp:Label ID="lblDiplomaFee" runat="server" Text='<%#Eval("DiplomaFee") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Age">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAge" runat="server" Text='<%#Eval("Age") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Experience">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExperience" runat="server" Text='<%#Eval("Experience") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Delete">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbDelete" runat="server" CommandArgument='<%#Eval("Mem_MemberTypeID") %>' OnClick="lbDelete_Click">
+                            Delete
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+    </div>
+</asp:Content>

@@ -1,0 +1,108 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true"
+    CodeFile="AdminMem_FeesDisplay.aspx.cs" Inherits="AdminMem_FeesDisplay" Title="Display Mem_Fees By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
+        .gridCss
+        {
+            width: 100%;
+            padding: 20px 10px 10px 10px;
+            text-align: center;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div>
+        <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+        <asp:GridView ID="gvMem_Fees" runat="server" AutoGenerateColumns="false" CssClass="gridCss">
+            <Columns>
+                <asp:TemplateField HeaderText="Select">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbSelect" runat="server" CommandArgument='<%#Eval("Mem_FeesID") %>' OnClick="lbSelect_Click">
+                            Select
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mem_MemberID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMem_MemberID" runat="server" Text='<%#Eval("Mem_MemberID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Amount">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAmount" runat="server" Text='<%#Eval("Amount") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="DatePaid">
+                    <ItemTemplate>
+                        <asp:Label ID="lblDatePaid" runat="server" Text='<%#Eval("DatePaid") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PaidFor">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPaidFor" runat="server" Text='<%#Eval("PaidFor") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExtraField">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExtraField" runat="server" Text='<%#Eval("ExtraField") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="AddedDate">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAddedDate" runat="server" Text='<%#Eval("AddedDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="AddedBy">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAddedBy" runat="server" Text='<%#Eval("AddedBy") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ModifiedBy">
+                    <ItemTemplate>
+                        <asp:Label ID="lblModifiedBy" runat="server" Text='<%#Eval("ModifiedBy") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ModifiedDate">
+                    <ItemTemplate>
+                        <asp:Label ID="lblModifiedDate" runat="server" Text='<%#Eval("ModifiedDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_RowStatusID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_RowStatusID" runat="server" Text='<%#Eval("Comn_RowStatusID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="RefferenceNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblRefferenceNo" runat="server" Text='<%#Eval("RefferenceNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Comn_PaymentByID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblComn_PaymentByID" runat="server" Text='<%#Eval("Comn_PaymentByID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Delete">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbDelete" runat="server" CommandArgument='<%#Eval("Mem_FeesID") %>' OnClick="lbDelete_Click">
+                            Delete
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+    </div>
+</asp:Content>

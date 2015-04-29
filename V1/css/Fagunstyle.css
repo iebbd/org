@@ -1,0 +1,50 @@
+img.logo{
+	width:100%;
+	}
+body{
+	background: none repeat scroll 0 0 #F2F2F2;
+    font-family: arial;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+div.container{
+width:1009px; background:#ffffff; 
+
+    margin: 0;
+    padding: 0;
+}
+div.header{width:100%;}
+div.pageContainer{width:100%;margin-top:5px;}
+
+h2.head{
+background:#0f3193; padding-top:10px;padding-left:20px; margin-top:0px;; margin-right:0px;
+}
+
+.box1{background-color:#17519C;margin:10px;height:205px;width:105px;cursor:pointer;
+    }
+.box2{background-color:#17519C;margin:10px;height:100px;width:100px;cursor:pointer;}
+.box3{background-color:#17519C;margin:10px;height:50px;width:100px;cursor:pointer;}
+
+.specialHomeMenuBoxSpaceing1{background-color:#fff;height:5px;}
+.specialHomeMenuBoxSpaceing2{background-color:#fff;height:50px;width:5px;}
+.specialHomeMenuBoxSpaceing3{background-color:#fff;height:5px;width:50px;}
+.specialHomeMenuBoxSpaceing4{background-color:#fff;height:5px;width:5px; }
+.specialHomeMenuBoxSpaceing5{background-color:#fff;height:30px;width:5px; }
+
+
+.tblSpecialHomeMenu a{font-weight:bold;text-align:center;width:100%}
+.tblSpecialHomeMenu img{width:95px;}
+.tblSpecialHomeMenu a{text-align:center;font-size:13px;color:White;text-decoration:none;}
+.tblSpecialHomeMenu a:hover{text-decoration:underline;}
+.header_intro{background-color:#0f3193;height:30px;width:100%;Color:White;text-align:center;font-weight:bold;font-size:17px;}
+.td_2ndRow{padding-top:5px;text-align:justify;height:164px}
+.td_2ndRow p,.td_2ndRow span{padding-right:5px;}
+.td_2ndRow_event{padding-top:5px;padding-bottom:5px;text-align:justify}
+.newsDate{
+    background-image: url("../images/eventsDate.png");
+     background-repeat: no-repeat;
+    color: #FFFFFF;
+    font-weight: bold;
+    height: 19px;
+    padding:0px 2px 6px 3px;}

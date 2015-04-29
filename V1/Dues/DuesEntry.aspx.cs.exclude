@@ -1,0 +1,107 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+
+public partial class VoterList_DuesEntry : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            txtEntryDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+        }
+    }
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        
+        if (txtEntryDate.Text != ""
+            && txtAmount.Text != ""
+            && txtDatePaid.Text != ""
+            && ddlPaidFor.SelectedValue != "0"
+            )
+        {
+            string sql = @"
+                INSERT INTO [New_Dues]
+                           ([MembershipNo]
+                           ,[Amount]
+                           ,[DatePaid]
+                           ,[EntryDate]
+                           ,[PaidFor]
+,[Status])
+                     VALUES
+                           ('" + txtMemebershipNo.Text + @"'--MembershipNo
+                           ,'" + txtAmount.Text + @"'--<Amount, nvarchar(50),>
+                           ,'" + txtDatePaid.Text + @"'--<DatePaid, nvarchar(50),>
+                           ,'" + txtEntryDate.Text + @"'--<EntryDate, nvarchar(50),>
+                           ,'" + ddlPaidFor.SelectedValue + @"'--<PaidFor, nvarchar(50),>
+,1--status,int
+)
+                ";
+            //txtEntryDate.Text = "";
+            txtAmount.Text = "";
+            txtDatePaid.Text = "";
+            ddlPaidFor.SelectedValue = "0";
+            //lblName.Text = "";
+            DatabaseManager.ExecSQL(sql);
+
+            showAlartMessage("Successful...");
+            btnSearch_Click(this, new EventArgs());
+        }
+        else
+        {
+            showAlartMessage("Missing Data");
+        }
+
+    }
+
+    private void showAlartMessage(string message)
+    {
+        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
+             "err_msg",
+             "alert('" + message + "');",
+             true);
+    }
+
+    protected void txtMemebershipNo_TextChanged(object sender, EventArgs e)
+    {
+        string sql = @"
+                Select MemName from MembershipRegistrationInfo where MembershipNo ='" + txtMemebershipNo.Text + @"';
+                Select * from New_Dues where MembershipNo='" + txtMemebershipNo.Text + @"';
+                ";
+
+        try
+        {
+            DataSet ds = DatabaseManager.ExecSQL(sql);
+            lblName.Text = ds.Tables[0].Rows[0][0].ToString();
+            lblName.BackColor = System.Drawing.Color.Green;
+
+            gvPaymentHisotry.DataSource=ds.Tables[1];
+            gvPaymentHisotry.DataBind();
+        }
+        catch (Exception ex)
+        {
+            lblName.Text = "Not Matched";
+            lblName.BackColor = System.Drawing.Color.Red;
+        }
+    }
+    protected void lbSelect_Click(object sender, EventArgs e)
+    {
+        LinkButton linkButton = new LinkButton();
+        linkButton = (LinkButton)sender;
+        int id;
+        id = Convert.ToInt32(linkButton.CommandArgument);
+
+        string sql = "Delete New_Dues where ID=" + id;
+        DatabaseManager.ExecSQL(sql);
+
+        txtMemebershipNo_TextChanged(this, new EventArgs());
+    }
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        txtMemebershipNo_TextChanged(this, new EventArgs());
+    }
+}

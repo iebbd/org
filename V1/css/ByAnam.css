@@ -1,0 +1,64 @@
+﻿/*model popup loading*/
+        .modalBackground
+        {
+            background-color: #DCDCDC;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+        }
+        
+        .modalPopup
+        {
+            background-color: White;
+            border-width: 3px;
+            border-style: solid;
+            border-color: Gray;
+            padding: 5px;
+            width: 600px;
+        }
+        
+        .MyCalendar
+        {
+            background:#398AD2;
+            color:#fff;
+        }
+        
+        /*  Footer */
+         .footer a{color:White;}
+         .footer a:hover{text-decoration:underline;}
+         #ContentPlaceHolder1_lblContent p{padding-top:0px;padding-bottom:0px;margin-top:0px;margin-bottom:0px;}
+         .td_2ndRow_event a{text-decoration:none;color:Black; line-height:15px;}
+         .td_2ndRow_event a:hover{color:blue;}
+         .td_2ndRow_event td{margin-bottom:2px;}
+          .tbl td{border:1px solid black;padding:5px;}
+         marquee a{text-decoration:none;color:Black;}
+         marquee a:hover{color:blue;}
+  
+  /*
+    Hilighted Menu    
+         #myDIV
+{
+background:red;
+animation:mymove 5s infinite;
+
+-webkit-animation:mymove 5s infinite;
+}
+
+@keyframes mymove
+{
+from {background-color:red;}
+to {background-color:blue;}
+}
+
+
+@-webkit-keyframes mymove
+{
+from {background-color:red;}
+to {background-color:blue;}
+}
+       */  
+         
+         
+         
+         
+        
+        

@@ -1,0 +1,50 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPageWithoutChatWithoutRightPanel.master" AutoEventWireup="true" CodeFile="AllDues.aspx.cs" Inherits="Dues_AllDues" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="headContentPlaceHolder" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+   <asp:GridView ID="gvPaymentHisotry" 
+             runat="server" AutoGenerateColumns="false" CssClass="gridCss">
+            <Columns>
+                
+                <asp:TemplateField HeaderText="Membership No">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMembershipNo" runat="server" Text='<%#Eval("MembershipNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Amount">
+                    <ItemTemplate>
+                        <asp:Label ID="lblAmount" runat="server" Text='<%#Eval("Amount") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Date Paid">
+                    <ItemTemplate>
+                        <asp:Label ID="lblDatePaid" runat="server" Text='<%#Eval("DatePaid") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PaidFor">
+                    <ItemTemplate>
+                        <asp:Label ID="lblPaidFor" runat="server" Text='<%#Eval("PaidFor") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Entry Date">
+                    <ItemTemplate>
+                        <asp:Label ID="lblEntryDate" runat="server" Text='<%#Eval("EntryDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Select">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbSelect" runat="server" CommandArgument='<%#Eval("ID") %>' OnClick="lbSelect_Click">
+                            Delete
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+</asp:Content>
+

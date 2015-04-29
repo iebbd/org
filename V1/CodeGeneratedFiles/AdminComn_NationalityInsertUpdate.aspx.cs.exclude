@@ -1,0 +1,68 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_NationalityInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["comn_NationalityID"] != null)
+            {
+                int comn_NationalityID = Int32.Parse(Request.QueryString["comn_NationalityID"]);
+                if (comn_NationalityID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_NationalityData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_Nationality comn_Nationality = new Comn_Nationality();
+
+        comn_Nationality.Comn_NationalityName = txtComn_NationalityName.Text;
+        int resutl = Comn_NationalityManager.InsertComn_Nationality(comn_Nationality);
+        Response.Redirect("AdminComn_NationalityDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_Nationality comn_Nationality = new Comn_Nationality();
+        comn_Nationality = Comn_NationalityManager.GetComn_NationalityByID(Int32.Parse(Request.QueryString["comn_NationalityID"]));
+        Comn_Nationality tempComn_Nationality = new Comn_Nationality();
+        tempComn_Nationality.Comn_NationalityID = comn_Nationality.Comn_NationalityID;
+
+        tempComn_Nationality.Comn_NationalityName = txtComn_NationalityName.Text;
+        bool result = Comn_NationalityManager.UpdateComn_Nationality(tempComn_Nationality);
+        Response.Redirect("AdminComn_NationalityDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtComn_NationalityName.Text = "";
+    }
+    private void showComn_NationalityData()
+    {
+        Comn_Nationality comn_Nationality = new Comn_Nationality();
+        comn_Nationality = Comn_NationalityManager.GetComn_NationalityByID(Int32.Parse(Request.QueryString["comn_NationalityID"]));
+
+        txtComn_NationalityName.Text = comn_Nationality.Comn_NationalityName;
+    }
+}

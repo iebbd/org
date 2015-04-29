@@ -1,0 +1,72 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_MemberCategoryInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["mem_MemberCategoryID"] != null)
+            {
+                int mem_MemberCategoryID = Int32.Parse(Request.QueryString["mem_MemberCategoryID"]);
+                if (mem_MemberCategoryID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_MemberCategoryData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_MemberCategory mem_MemberCategory = new Mem_MemberCategory();
+
+        mem_MemberCategory.Mem_MemberCategoryName = txtMem_MemberCategoryName.Text;
+        mem_MemberCategory.Details = txtDetails.Text;
+        int resutl = Mem_MemberCategoryManager.InsertMem_MemberCategory(mem_MemberCategory);
+        Response.Redirect("AdminMem_MemberCategoryDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_MemberCategory mem_MemberCategory = new Mem_MemberCategory();
+        mem_MemberCategory = Mem_MemberCategoryManager.GetMem_MemberCategoryByID(Int32.Parse(Request.QueryString["mem_MemberCategoryID"]));
+        Mem_MemberCategory tempMem_MemberCategory = new Mem_MemberCategory();
+        tempMem_MemberCategory.Mem_MemberCategoryID = mem_MemberCategory.Mem_MemberCategoryID;
+
+        tempMem_MemberCategory.Mem_MemberCategoryName = txtMem_MemberCategoryName.Text;
+        tempMem_MemberCategory.Details = txtDetails.Text;
+        bool result = Mem_MemberCategoryManager.UpdateMem_MemberCategory(tempMem_MemberCategory);
+        Response.Redirect("AdminMem_MemberCategoryDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtMem_MemberCategoryName.Text = "";
+        txtDetails.Text = "";
+    }
+    private void showMem_MemberCategoryData()
+    {
+        Mem_MemberCategory mem_MemberCategory = new Mem_MemberCategory();
+        mem_MemberCategory = Mem_MemberCategoryManager.GetMem_MemberCategoryByID(Int32.Parse(Request.QueryString["mem_MemberCategoryID"]));
+
+        txtMem_MemberCategoryName.Text = mem_MemberCategory.Mem_MemberCategoryName;
+        txtDetails.Text = mem_MemberCategory.Details;
+    }
+}

@@ -1,0 +1,68 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_FileTypeInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["comn_FileTypeID"] != null)
+            {
+                int comn_FileTypeID = Int32.Parse(Request.QueryString["comn_FileTypeID"]);
+                if (comn_FileTypeID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_FileTypeData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_FileType comn_FileType = new Comn_FileType();
+
+        comn_FileType.Comn_FileTypeName = txtComn_FileTypeName.Text;
+        int resutl = Comn_FileTypeManager.InsertComn_FileType(comn_FileType);
+        Response.Redirect("AdminComn_FileTypeDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_FileType comn_FileType = new Comn_FileType();
+        comn_FileType = Comn_FileTypeManager.GetComn_FileTypeByID(Int32.Parse(Request.QueryString["comn_FileTypeID"]));
+        Comn_FileType tempComn_FileType = new Comn_FileType();
+        tempComn_FileType.Comn_FileTypeID = comn_FileType.Comn_FileTypeID;
+
+        tempComn_FileType.Comn_FileTypeName = txtComn_FileTypeName.Text;
+        bool result = Comn_FileTypeManager.UpdateComn_FileType(tempComn_FileType);
+        Response.Redirect("AdminComn_FileTypeDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtComn_FileTypeName.Text = "";
+    }
+    private void showComn_FileTypeData()
+    {
+        Comn_FileType comn_FileType = new Comn_FileType();
+        comn_FileType = Comn_FileTypeManager.GetComn_FileTypeByID(Int32.Parse(Request.QueryString["comn_FileTypeID"]));
+
+        txtComn_FileTypeName.Text = comn_FileType.Comn_FileTypeName;
+    }
+}

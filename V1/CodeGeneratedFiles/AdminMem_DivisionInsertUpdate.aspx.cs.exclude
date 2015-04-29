@@ -1,0 +1,84 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminMem_DivisionInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["mem_DivisionID"] != null)
+            {
+                int mem_DivisionID = Int32.Parse(Request.QueryString["mem_DivisionID"]);
+                if (mem_DivisionID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showMem_DivisionData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Mem_Division mem_Division = new Mem_Division();
+
+        mem_Division.Mem_DivisionName = txtMem_DivisionName.Text;
+        mem_Division.Website = txtWebsite.Text;
+        mem_Division.FullName = txtFullName.Text;
+        mem_Division.ContactInfo = txtContactInfo.Text;
+        mem_Division.Details = txtDetails.Text;
+        int resutl = Mem_DivisionManager.InsertMem_Division(mem_Division);
+        Response.Redirect("AdminMem_DivisionDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Mem_Division mem_Division = new Mem_Division();
+        mem_Division = Mem_DivisionManager.GetMem_DivisionByID(Int32.Parse(Request.QueryString["mem_DivisionID"]));
+        Mem_Division tempMem_Division = new Mem_Division();
+        tempMem_Division.Mem_DivisionID = mem_Division.Mem_DivisionID;
+
+        tempMem_Division.Mem_DivisionName = txtMem_DivisionName.Text;
+        tempMem_Division.Website = txtWebsite.Text;
+        tempMem_Division.FullName = txtFullName.Text;
+        tempMem_Division.ContactInfo = txtContactInfo.Text;
+        tempMem_Division.Details = txtDetails.Text;
+        bool result = Mem_DivisionManager.UpdateMem_Division(tempMem_Division);
+        Response.Redirect("AdminMem_DivisionDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtMem_DivisionName.Text = "";
+        txtWebsite.Text = "";
+        txtFullName.Text = "";
+        txtContactInfo.Text = "";
+        txtDetails.Text = "";
+    }
+    private void showMem_DivisionData()
+    {
+        Mem_Division mem_Division = new Mem_Division();
+        mem_Division = Mem_DivisionManager.GetMem_DivisionByID(Int32.Parse(Request.QueryString["mem_DivisionID"]));
+
+        txtMem_DivisionName.Text = mem_Division.Mem_DivisionName;
+        txtWebsite.Text = mem_Division.Website;
+        txtFullName.Text = mem_Division.FullName;
+        txtContactInfo.Text = mem_Division.ContactInfo;
+        txtDetails.Text = mem_Division.Details;
+    }
+}

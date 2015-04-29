@@ -1,0 +1,120 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class AdminComn_OfficeInsertUpdate : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            loadComm_OfficeType();
+            loadUpperLabelOffice();
+            if (Request.QueryString["comn_OfficeID"] != null)
+            {
+                int comn_OfficeID = Int32.Parse(Request.QueryString["comn_OfficeID"]);
+                if (comn_OfficeID == 0)
+                {
+                    btnUpdate.Visible = false;
+                    btnAdd.Visible = true;
+                }
+                else
+                {
+                    btnAdd.Visible = false;
+                    btnUpdate.Visible = true;
+                    showComn_OfficeData();
+                }
+            }
+        }
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        Comn_Office comn_Office = new Comn_Office();
+
+        comn_Office.Comn_OfficeName = txtComn_OfficeName.Text;
+        comn_Office.Comm_OfficeTypeID = Int32.Parse(ddlComm_OfficeType.SelectedValue);
+        comn_Office.UpperLabelOfficeID = Int32.Parse(ddlUpperLabelOffice.SelectedValue);
+        comn_Office.Website = txtWebsite.Text;
+        comn_Office.Phone = txtPhone.Text;
+        comn_Office.Fax = txtFax.Text;
+        comn_Office.Details = txtDetails.Text;
+        int resutl = Comn_OfficeManager.InsertComn_Office(comn_Office);
+        Response.Redirect("AdminComn_OfficeDisplay.aspx");
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        Comn_Office comn_Office = new Comn_Office();
+        comn_Office = Comn_OfficeManager.GetComn_OfficeByID(Int32.Parse(Request.QueryString["comn_OfficeID"]));
+        Comn_Office tempComn_Office = new Comn_Office();
+        tempComn_Office.Comn_OfficeID = comn_Office.Comn_OfficeID;
+
+        tempComn_Office.Comn_OfficeName = txtComn_OfficeName.Text;
+        tempComn_Office.Comm_OfficeTypeID = Int32.Parse(ddlComm_OfficeType.SelectedValue);
+        tempComn_Office.UpperLabelOfficeID = Int32.Parse(ddlUpperLabelOffice.SelectedValue);
+        tempComn_Office.Website = txtWebsite.Text;
+        tempComn_Office.Phone = txtPhone.Text;
+        tempComn_Office.Fax = txtFax.Text;
+        tempComn_Office.Details = txtDetails.Text;
+        bool result = Comn_OfficeManager.UpdateComn_Office(tempComn_Office);
+        Response.Redirect("AdminComn_OfficeDisplay.aspx");
+    }
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        txtComn_OfficeName.Text = "";
+        ddlComm_OfficeType.SelectedIndex = 0;
+        ddlUpperLabelOffice.SelectedIndex = 0;
+        txtWebsite.Text = "";
+        txtPhone.Text = "";
+        txtFax.Text = "";
+        txtDetails.Text = "";
+    }
+    private void showComn_OfficeData()
+    {
+        Comn_Office comn_Office = new Comn_Office();
+        comn_Office = Comn_OfficeManager.GetComn_OfficeByID(Int32.Parse(Request.QueryString["comn_OfficeID"]));
+
+        txtComn_OfficeName.Text = comn_Office.Comn_OfficeName;
+        ddlComm_OfficeType.SelectedValue = comn_Office.Comm_OfficeTypeID.ToString();
+        ddlUpperLabelOffice.SelectedValue = comn_Office.UpperLabelOfficeID.ToString();
+        txtWebsite.Text = comn_Office.Website;
+        txtPhone.Text = comn_Office.Phone;
+        txtFax.Text = comn_Office.Fax;
+        txtDetails.Text = comn_Office.Details;
+    }
+    private void loadComm_OfficeType()
+    {
+        ListItem li = new ListItem("Select Comm_OfficeType...", "0");
+        ddlComm_OfficeType.Items.Add(li);
+
+        List<Comm_OfficeType> comm_OfficeTypes = new List<Comm_OfficeType>();
+        comm_OfficeTypes = Comm_OfficeTypeManager.GetAllComm_OfficeTypes();
+        foreach (Comm_OfficeType comm_OfficeType in comm_OfficeTypes)
+        {
+            ListItem item = new ListItem(comm_OfficeType.Comm_OfficeTypeName.ToString(), comm_OfficeType.Comm_OfficeTypeID.ToString());
+            ddlComm_OfficeType.Items.Add(item);
+        }
+    }
+    private void loadUpperLabelOffice()
+    {
+        ListItem li = new ListItem("Select UpperLabelOffice...", "0");
+        ddlUpperLabelOffice.Items.Add(li);
+
+        List<UpperLabelOffice> upperLabelOffices = new List<UpperLabelOffice>();
+        upperLabelOffices = UpperLabelOfficeManager.GetAllUpperLabelOffices();
+        foreach (UpperLabelOffice upperLabelOffice in upperLabelOffices)
+        {
+            ListItem item = new ListItem(upperLabelOffice.UpperLabelOfficeName.ToString(), upperLabelOffice.UpperLabelOfficeID.ToString());
+            ddlUpperLabelOffice.Items.Add(item);
+        }
+    }
+}

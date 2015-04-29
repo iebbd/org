@@ -1,0 +1,96 @@
+<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true"
+    CodeFile="AdminMem_RAJUKDisplay.aspx.cs" Inherits="AdminMem_RAJUKDisplay" Title="Display Mem_RAJUK By Admin" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style type="text/css">
+        .gridCss
+        {
+            width: 100%;
+            padding: 20px 10px 10px 10px;
+            text-align: center;
+        }
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div>
+        <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" />
+        <asp:GridView ID="gvMem_RAJUK" runat="server" AutoGenerateColumns="false" CssClass="gridCss">
+            <Columns>
+                <asp:TemplateField HeaderText="Select">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbSelect" runat="server" CommandArgument='<%#Eval("Mem_RAJUKID") %>' OnClick="lbSelect_Click">
+                            Select
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Mem_MemberID">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMem_MemberID" runat="server" Text='<%#Eval("Mem_MemberID") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MembershipNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMembershipNo" runat="server" Text='<%#Eval("MembershipNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="RAJUKRegistrationNo">
+                    <ItemTemplate>
+                        <asp:Label ID="lblRAJUKRegistrationNo" runat="server" Text='<%#Eval("RAJUKRegistrationNo") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Batch">
+                    <ItemTemplate>
+                        <asp:Label ID="lblBatch" runat="server" Text='<%#Eval("Batch") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="ExamDate">
+                    <ItemTemplate>
+                        <asp:Label ID="lblExamDate" runat="server" Text='<%#Eval("ExamDate") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Telephone">
+                    <ItemTemplate>
+                        <asp:Label ID="lblTelephone" runat="server" Text='<%#Eval("Telephone") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Email">
+                    <ItemTemplate>
+                        <asp:Label ID="lblEmail" runat="server" Text='<%#Eval("Email") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="TypeOfMemeber">
+                    <ItemTemplate>
+                        <asp:Label ID="lblTypeOfMemeber" runat="server" Text='<%#Eval("TypeOfMemeber") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MembershipNoValue">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMembershipNoValue" runat="server" Text='<%#Eval("MembershipNoValue") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MembershipNoValueChar">
+                    <ItemTemplate>
+                        <asp:Label ID="lblMembershipNoValueChar" runat="server" Text='<%#Eval("MembershipNoValueChar") %>'>
+                        </asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Delete">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbDelete" runat="server" CommandArgument='<%#Eval("Mem_RAJUKID") %>' OnClick="lbDelete_Click">
+                            Delete
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+    </div>
+</asp:Content>
